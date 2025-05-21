@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -10,10 +11,16 @@ class UserController extends Controller
     //
     public function showCustomer()
     {
-        return view('admin.customers.index');
+        $customers = User::where('role', 'customer')->get();
+        return view('admin.customers.index', [
+            'customers' => $customers
+        ]);
     }
     public function showVendor()
     {
-        return view('admin.vendor.index');
+        $vendors = User::where('role', 'vendor')->get();
+        return view('admin.vendor.index', [
+            'vendors' => $vendors
+        ]);
     }
 }

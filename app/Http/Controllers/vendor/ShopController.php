@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\vendor;
 
 use App\Http\Controllers\Controller;
+use App\Models\Shop;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ShopController extends Controller
 {
@@ -12,8 +15,9 @@ class ShopController extends Controller
      */
     public function index()
     {
-        //
-        return view('vendor.shop.index');
+
+        $shop = Shop::where('user_id', Auth::id())->first();
+        return view('vendor.shop.index', compact('shop'));
     }
 
     /**
@@ -22,6 +26,8 @@ class ShopController extends Controller
     public function create()
     {
         //
+
+
     }
 
     /**
@@ -30,6 +36,30 @@ class ShopController extends Controller
     public function store(Request $request)
     {
         //
+         $request->validate([
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $user = Auth::user();
+
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $path = $file->store('uploads/shops','public');
+        }else{
+            $path = 'uploads/shops/shop_default.jpg';
+        }
+
+        Shop::create([
+            'name'     => $request->name,
+            'user_id'  => $user->id,
+            'slug'     => Str::slug($request->name),
+            'description'  => $request->description,
+            'image'    => $path,
+        ]);
+        return redirect('/vendor/shop')->with('success', 'Votre boutique a été créée avec succès.');
     }
 
     /**
@@ -46,14 +76,35 @@ class ShopController extends Controller
     public function edit(string $id)
     {
         //
+        $shop = Shop::findOrFail($id);
+        return view('vendor.shop.edit', compact('shop'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
         //
+        $request->validate([
+            'name' => 'required|string|max:255',
+        'description' => 'required|string',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
+
+        $shop = Shop::where('user_id', Auth::id())->firstOrFail();
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('uploads/shops', 'public');
+            $shop->image = $path;
+        }
+
+        $shop->name = $request->name;
+        $shop->description = $request->description;
+        $shop->slug = Str::slug($request->name);
+        $shop->save();
+
+        return redirect('vendor/shop')->with('success', 'Boutique mise à jour avec succès.');
     }
 
     /**

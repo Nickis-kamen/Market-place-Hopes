@@ -20,7 +20,7 @@
     {{-- Contenu principal --}}
     {{ $slot }}
 
-    <x-footer />
+    {{-- <x-footer /> --}}
 
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>

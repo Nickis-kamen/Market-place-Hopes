@@ -8,7 +8,7 @@
     <span class="self-center text-2xl font-semibold whitespace-nowrap">Espace vendeur</span>
     <div class="flex gap-3 items-center">
         <a href="">
-            <img src="../{{ Auth::user()->image }}" alt="pdp" class="w-10 h-10 rounded-full object-cover border border-white  bg-white">
+            <img src="{{asset(Auth::user()->image) }}" alt="pdp" class="w-10 h-10 rounded-full object-cover border border-white  bg-white">
         </a>
         <form method="POST" action="{{ route('logout.store') }}">
             @csrf

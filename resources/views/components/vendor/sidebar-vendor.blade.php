@@ -1,7 +1,7 @@
-<aside class="fixed top-18 left-0 z-40 w-64 h-screen bg-white shadow-lg">
+<aside class="fixed top-0 pt-20 left-0 w-64 h-screen bg-white shadow-lg">
     <div class="p-6">
         <h2 class="text-2xl font-bold text-blue-600 mb-4">Mon espace</h2>
-        <p class="text-sm text-gray-500 mt-1 font-bold">{{ Auth::user()->email }}</p>
+        <p class="text-sm text-gray-500 mt-1 font-semibold">{{ Auth::user()->email }}</p>
     </div>
     <nav class="mt-6">
         <ul class="space-y-2 px-4">
@@ -35,4 +35,9 @@
             </li>
         </ul>
     </nav>
+
+    <div class="absolute bottom-0 left-0 w-full p-4 bg-gray-100">
+        <p class="text-sm text-center text-gray-500">© {{ date('Y') }} MarketPlace. Tous droits réservés.</p>
+    </div>
+
 </aside>

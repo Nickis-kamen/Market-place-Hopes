@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\vendor;
 
 use App\Http\Controllers\Controller;
+use App\Models\Shop;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -13,7 +15,10 @@ class ProductController extends Controller
     public function index()
     {
         //
-        return view('vendor.products.index');
+        $shop = Shop::where('user_id', Auth::id())->first();
+        return view('vendor.products.index', [
+            'shop' => $shop
+        ]);
     }
 
     /**

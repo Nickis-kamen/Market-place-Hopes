@@ -3,7 +3,7 @@
       {{-- Contenu principal --}}
       <main class="py-10 px-8 sm:ml-64 h-screen mt-15">
           <h1 class="text-2xl font-bold mb-6">Mes Produits</h1>
-          {{-- @if($shop) --}}
+          @if($shop)
           <table class="w-full bg-white rounded shadow-md">
             <thead>
               <tr class="bg-gray-200 text-left text-sm">
@@ -27,10 +27,10 @@
               {{-- Fin de l'exemple --}}
             </tbody>
           </table>
-        {{-- @else --}}
+        @else
             <p class="text-gray-700 mb-4">Vous n’avez pas encore de boutique.</p>
             <a href="" class="bg-blue-600 text-white px-4 py-2 rounded">Créer ma boutique</a>
-        {{-- @endif --}}
+        @endif
 
       </main>
   </x-vendor.layout-vendor>
