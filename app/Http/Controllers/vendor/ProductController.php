@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\vendor;
 
 use App\Http\Controllers\Controller;
+use App\Models\Categorie;
 use App\Models\Shop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +28,13 @@ class ProductController extends Controller
     public function create()
     {
         //
+        $shop = Shop::where('user_id', Auth::id())->first();
+        $categories = Categorie::all();
+        
+        return view('vendor.products.create',[
+            'shop' => $shop,
+            'categories' => $categories
+        ]);
     }
 
     /**

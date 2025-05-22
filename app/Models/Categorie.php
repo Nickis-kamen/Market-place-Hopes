@@ -16,7 +16,7 @@ class Categorie extends Model
     }
 
     protected $fillable = [
-        'name',
+        'title',
         'slug',
         'description'
     ];
