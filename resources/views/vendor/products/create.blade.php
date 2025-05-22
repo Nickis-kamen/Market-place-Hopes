@@ -7,7 +7,6 @@
 
               <form action="{{ route('vendor.products.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-
                 <div class="mb-4">
                     <label for="image" class="block text-gray-700 font-semibold">Image</label>
                     <x-error-input name="image" />
@@ -16,8 +15,8 @@
 
                 <div class="mb-4">
                     <label for="name" class="block text-gray-700 font-semibold">Nom du produit</label>
-                    <x-error-input name="name" />
-                    <input type="text" name="name" id="name" class="w-full border p-2 rounded" required>
+                    <x-error-input name="title" />
+                    <input type="text" name="title" id="name" class="w-full border p-2 rounded" required>
                 </div>
 
                 <div class="mb-4">
@@ -29,17 +28,26 @@
                 <div class="mb-4">
                     <label class="block text-gray-700 font-semibold mb-2">Catégories</label>
                     <x-error-input name="categories" />
+                    @if ($categories->isEmpty())
+                        <p class="text-gray-500">Aucune catégorie disponible.</p>
+                    @else
                     @foreach ($categories as $category)
-                        <div>
+                    <div>
                             <label>
                                 <input type="checkbox" name="categories[]" value="{{ $category->id }}" class="mr-2">
                                 {{ $category->title }}
                             </label>
                         </div>
                     @endforeach
+                    @endif
                 </div>
                 <div class="mb-4">
-                    <label for="price" class="block text-gray-700 font-semibold">Prix (€)</label>
+                    <label for="price" class="block text-gray-700 font-semibold">Quantité</label>
+                    <x-error-input name="qty" />
+                    <input type="number" step="0.01" name="quantity" id="qty" class="w-full border p-2 rounded" required>
+                </div>
+                <div class="mb-4">
+                    <label for="price" class="block text-gray-700 font-semibold">Prix (Ariary)</label>
                     <x-error-input name="price" />
                     <input type="number" step="0.01" name="price" id="price" class="w-full border p-2 rounded" required>
                 </div>
