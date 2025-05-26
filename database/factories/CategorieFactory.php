@@ -16,8 +16,12 @@ class CategorieFactory extends Factory
      */
     public function definition(): array
     {
+        $title = fake()->unique()->jobTitle();
         return [
             //
+            'title' => $title,
+            'slug' => \Illuminate\Support\Str::slug($title),
+            'description' => fake()->paragraph(),
         ];
     }
 }

@@ -16,8 +16,14 @@ class ShopFactory extends Factory
      */
     public function definition(): array
     {
+        $name = fake()->company();
         return [
             //
+            'user_id' => 3,
+            'name' => $name,
+            'slug' => \Illuminate\Support\Str::slug($name),
+            'description' => fake()->paragraph(),
+            'image' => 'uploads/shops/JwwfbLuQj3qYR5N5AmOqW1tQkrBwKwWyes3h7x9r.jpg',
         ];
     }
 }

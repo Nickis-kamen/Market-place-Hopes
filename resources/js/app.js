@@ -2,14 +2,14 @@ import './bootstrap';
 // import 'aos/dist/aos.css'; // Importer le CSS d'AOS
 // import { AOS } from 'aos';
 // AOS.init({
-//     duration: 1200,   // Durée de l'animation en ms
-//     easing: 'ease-in-out',
-//     once: true,  // Animation qui se déclenche une seule fois
-//     mirror: false, // Animation qui ne se répète pas au retour dans la vue
-// });
+    //     duration: 1200,   // Durée de l'animation en ms
+    //     easing: 'ease-in-out',
+    //     once: true,  // Animation qui se déclenche une seule fois
+    //     mirror: false, // Animation qui ne se répète pas au retour dans la vue
+    // });
 
 
-document.addEventListener('DOMContentLoaded', ()=>{
+    document.addEventListener('DOMContentLoaded', ()=>{
     const navbar = document.getElementById('navbar');
 
     window.addEventListener('scroll', () => {
@@ -49,6 +49,32 @@ document.addEventListener('DOMContentLoaded', ()=>{
     observer.observe(section1);
 })
 
+// slide
+document.getElementById('scrollLeft').addEventListener('click', function() {
+    document.getElementById('categoryContainer').scrollBy({
+      left: -200,
+      behavior: 'smooth'
+    });
+});
+  document.getElementById('scrollRight').addEventListener('click', function() {
+    document.getElementById('categoryContainer').scrollBy({
+      left: 200,
+      behavior: 'smooth'
+    });
+  });
+document.getElementById('ShopscrollLeft').addEventListener('click', function() {
+    document.getElementById('ShopContainer').scrollBy({
+      left: -300,
+      behavior: 'smooth'
+    });
+});
+  document.getElementById('ShopscrollRight').addEventListener('click', function() {
+    document.getElementById('ShopContainer').scrollBy({
+      left: 300,
+      behavior: 'smooth'
+    });
+  });
+// alert('Hello, this is a test alert!');
 
 //image
 const fileInput = document.getElementById('fileInput');
@@ -57,14 +83,13 @@ const fileInput = document.getElementById('fileInput');
     fileInput.addEventListener('change', function () {
       const file = this.files[0];
       if (file) {
-        const reader = new FileReader();
+          const reader = new FileReader();
 
-        reader.addEventListener("load", function () {
-          preview.setAttribute("src", this.result);
+          reader.addEventListener("load", function () {
+              preview.setAttribute("src", this.result);
           preview.classList.remove('hidden');
         });
 
         reader.readAsDataURL(file);
       }
     });
-

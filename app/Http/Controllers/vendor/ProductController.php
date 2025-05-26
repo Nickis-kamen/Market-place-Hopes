@@ -19,10 +19,15 @@ class ProductController extends Controller
     {
         //
         $shop = Shop::where('user_id', Auth::id())->first();
-        $products = Product::where('shop_id', $shop->id)->get();
+        if($shop){
+            $products = Product::where('shop_id', $shop->id)->latest()->get();
+            return view('vendor.products.index', [
+                'shop' => $shop,
+                'products' => $products
+            ]);
+        }
         return view('vendor.products.index', [
-            'shop' => $shop,
-            'products' => $products
+                'shop' => $shop
         ]);
     }
 
@@ -50,7 +55,7 @@ class ProductController extends Controller
         $request->validate([
             'shop_id' => 'required|exists:shops,id',
             'title' => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'categories' => 'required|array',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',

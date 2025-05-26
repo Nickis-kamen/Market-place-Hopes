@@ -5,6 +5,7 @@
         <!-- Affichage des détails de la boutique -->
         <div class="bg-white shadow-md rounded-xl py-10 px-15 w-125 mx-auto">
             <div class="mb-5 text-center">
+                <x-success />
                 <h2 class="text-xl font-semibold text-gray-800 mb-4">Informations de la boutique</h2>
                 <div class="w-32 h-32 mx-auto mb-6">
                     <img src="{{ asset('storage/'. $shop->image) }}" alt="Logo de la boutique" class="w-full h-full object-cover rounded-full">

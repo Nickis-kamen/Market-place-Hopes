@@ -4,9 +4,12 @@ namespace App\Http\Controllers\auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Mail\VerifyEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 
 class RegisterController extends Controller
@@ -25,17 +28,22 @@ class RegisterController extends Controller
             'password' => 'required|confirmed|min:6',
         ]);
 
+        $token = Str::random(64);
+
         $user = User::create([
             'name'     => $request->name,
             'email'    => $request->email,
             'phone'    => $request->phone,
             'address'  => $request->address,
+            'verification_token' => $token,
+            'is_verified' => false,
             'role'     => 'customer',
             'password' => Hash::make($request->password),
         ]);
 
-        Auth::login($user);
-        return redirect('/');
+        Mail::to($user->email)->send(new VerifyEmail($user, $token));
+
+        return redirect('/login')->with('success', 'Inscription réussie, vérifiez votre email pour activer votre compte.');
     }
 
     public function showVendorForm(){
@@ -49,29 +57,25 @@ class RegisterController extends Controller
             'email' => 'required|email|unique:users',
             'phone' => 'required',
             'address' => 'required',
-            'password' => 'required|confirmed|min:6'
+            'password' => 'required|confirmed|min:6',
         ]);
+
+        $token = Str::random(64);
 
         $user = User::create([
             'name'     => $request->name,
             'email'    => $request->email,
             'phone'    => $request->phone,
             'address'  => $request->address,
+            'verification_token' => $token,
+            'is_verified' => false,
             'role'     => 'vendor',
             'password' => Hash::make($request->password),
         ]);
 
-        // dd("test");
+        Mail::to($user->email)->send(new VerifyEmail($user, $token));
 
-        // Shop::create([
-        //     'name'     => $request->shop_name,
-        //     'user_id'  => $user->id,
-        //     'slug'     => Str::slug($request->shop_name),
-        //     'description'  => 'Lorem beee',
-        // ]);
-
-        Auth::login($user);
-        return redirect('/vendor/dashboard');
+        return redirect('/login')->with('success', 'Inscription réussie, vérifiez votre email pour activer votre compte.');
     }
 
 }

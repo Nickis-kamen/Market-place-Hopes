@@ -2,22 +2,18 @@
 
 namespace App\View\Components;
 
-use App\Models\User;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Sidebar extends Component
+class success extends Component
 {
     /**
      * Create a new component instance.
-     *
      */
-    // public $user;
-    public function __construct(public $user = '')
+    public function __construct()
     {
         //
-        // $this->user = $user;
     }
 
     /**
@@ -25,6 +21,6 @@ class Sidebar extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.sidebar');
+        return view('components.success');
     }
 }

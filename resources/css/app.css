@@ -10,4 +10,15 @@
         'Segoe UI Symbol', 'Noto Color Emoji';
     --font-display: 'Poppins';
 }
+@layer utilities {
+  /* Pour Chrome, Safari et Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 
+  /* Pour IE, Edge et Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE et Edge */
+    scrollbar-width: none;     /* Firefox */
+  }
+}

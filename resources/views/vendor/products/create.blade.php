@@ -31,14 +31,18 @@
                     @if ($categories->isEmpty())
                         <p class="text-gray-500">Aucune catégorie disponible.</p>
                     @else
-                    @foreach ($categories as $category)
-                    <div>
-                            <label>
-                                <input type="checkbox" name="categories[]" value="{{ $category->id }}" class="mr-2">
-                                {{ $category->title }}
-                            </label>
-                        </div>
-                    @endforeach
+                    <div class="flex flex-wrap gap-4">
+                        {{-- Boucle pour afficher les catégories --}}
+                        @foreach ($categories as $category)
+                            <div class="flex items-center">
+                                <input type="checkbox" id="category-{{ $category->id }}" name="categories[]" value="{{ $category->id }}" class="peer hidden" />
+                                <label for="category-{{ $category->id }}" class="cursor-pointer rounded-lg border px-3 py-1 text-gray-700 transition-colors duration-200 peer-checked:bg-blue-600 peer-checked:text-white">
+                                    {{ $category->title }}
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
+
                     @endif
                 </div>
                 <div class="mb-4">

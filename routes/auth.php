@@ -18,4 +18,6 @@ Route::middleware('guest') -> group(function () {
 
 });
 
+Route::get('/verify-email/{token}', [LoginController::class, 'verifyEmail'])->name('verify.email');
+
 Route::post('/logout', [LoginController::class, 'logout']) -> name('logout.store');

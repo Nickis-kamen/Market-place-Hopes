@@ -17,10 +17,9 @@ return new class extends Migration
             $table->string('image')->default('images/user_default.png');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->boolean('is_verified')->default(false);
+            $table->string('verification_token')->nullable();
             $table->string('password');
-
-            
-
             $table->enum('role', ['customer', 'vendor', 'admin'])->default('customer');
             $table->string('phone');
             $table->string('address');

@@ -3,8 +3,11 @@
       {{-- Contenu principal --}}
       <main class="py-10 px-8 sm:ml-64 h-screen mt-15">
 
-          <h1 class="text-2xl font-bold mb-6">Mes Produits</h1>
           @if($shop)
+          <div class="flex  items-center justify-between mb-6">
+                <h1 class="text-2xl font-bold">Mes Produits</h1>
+                <a href="{{ route('vendor.products.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded">Ajouter un produit</a>
+          </div>
             <table class="w-full bg-white rounded-xl shadow-md overflow-hidden">
                 <thead>
                     <tr class="bg-gradient-to-r from-blue-100 to-blue-200 text-sm text-gray-700 uppercase tracking-wider">
@@ -53,9 +56,7 @@
                 </tbody>
             </table>
 
-          <div class="mt-4">
-              <a href="{{ route('vendor.products.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded">Ajouter un produit</a>
-          </div>
+
         @else
             <p class="text-gray-700 mb-4">Vous n’avez pas encore de boutique.</p>
             <a href="{{ route('vendor.shop.index') }}" class="bg-blue-600 text-white px-4 py-2 rounded">Créer ma boutique</a>

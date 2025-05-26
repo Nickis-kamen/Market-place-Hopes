@@ -20,7 +20,7 @@ class AdminMiddleware
         {
             return $next($request);
         }else{
-            return to_route('home.index');
+            return redirect('/login');
         }
     }
 }
