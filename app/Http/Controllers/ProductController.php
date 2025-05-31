@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categorie;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,11 +10,32 @@ use Illuminate\Support\Facades\Auth;
 class ProductController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
-        return view('products.index',[
+        $categories = Categorie::all();
+        $categoryId = $request->query('category_id');
+
+        if($categoryId)
+        {
+            $products = Product::whereHas('categories',
+            function ($query) use ($categoryId)
+            {
+                $query->where('categories.id', $categoryId);
+            })
+            ->filter()->latest()->paginate(9)->withQueryString();
+        }else
+        {
+            $products = Product::filter()->latest()->paginate(9)->withQueryString();
+        }
+
+        $productsCount = $products->total();
+
+        return view('pages.products.index',[
             'user' => $user,
+            'products' => $products,
+            'productsCount' => $productsCount,
+            'categories' => $categories
         ]);
     }
 
