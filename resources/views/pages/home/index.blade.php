@@ -14,7 +14,12 @@
 
     <section class="sm:ml-64 bg-[#D6D2FF]" id="prod">
         <div class="flex flex-wrap justify-between items-center px-9 py-5 bg-white shadow-lg" >
-            <h2 class="text-2xl font-bold my-2">Nos produits</h2>
+            <h2 class="flex items-center gap-2 text-2xl font-bold my-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                </svg>
+                Nos produits
+            </h2>
             <div class="max-w-lg">
                     <div class="relative w-full">
                         <form action="{{ route('index') }}#prod" method="GET" >
@@ -148,7 +153,8 @@
             @foreach ($productsPopulaire as $product)
             <div class="backdrop-blur-lg bg-white/10 border border-white/20 rounded-xl shadow-lg p-4 text-center">
                 <img src="/storage/{{ $product->image }}" alt="{{ $product->name }}" class="w-48 h-48 object-cover mb-4">
-                 <div class="mt-4 flex items-center space-x-1 justify-center">
+                <h3 class="text-lg font-semibold text-white mt-2">{{ $product->title }}</h3>
+                    <div class="mt-2 mb-2 flex items-center space-x-1 justify-center">
                             {{-- Affichage des étoiles de notation --}}
                             @for ($i = 1; $i<= $product->averageRating(); $i++  )
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="inline-block w-5 h-5 text-yellow-400">
@@ -162,8 +168,7 @@
                             @endfor
 
                     </div>
-                <h3 class="text-lg font-semibold mt-2 mb-2">{{ $product->name }}</h3>
-                <p class="text-white font-bold mb-2">{{ $product->price }} Ar</p>
+                <p class="text-white font-bold mb-2">{{ number_format($product->price, 0, ',', ' ') }} Ar</p>
                 <a href="" class="inline-block bg-white text-blue-600 px-4 py-2 rounded hover:bg-blue-600 hover:text-white">Voir le produit</a>
             </div>
             @endforeach

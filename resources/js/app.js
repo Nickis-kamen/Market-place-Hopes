@@ -50,31 +50,26 @@ import './bootstrap';
 })
 
 // slide
-document.getElementById('scrollLeft').addEventListener('click', function() {
-    document.getElementById('categoryContainer').scrollBy({
-      left: -200,
-      behavior: 'smooth'
-    });
-});
-  document.getElementById('scrollRight').addEventListener('click', function() {
-    document.getElementById('categoryContainer').scrollBy({
-      left: 200,
-      behavior: 'smooth'
-    });
+function setupScrollButtons(containerId, leftBtnId, rightBtnId, scrollAmount = 300) {
+  const container = document.getElementById(containerId);
+  const leftBtn = document.getElementById(leftBtnId);
+  const rightBtn = document.getElementById(rightBtnId);
+
+  if (!container || !leftBtn || !rightBtn) return;
+
+  leftBtn.addEventListener('click', () => {
+    container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
   });
-document.getElementById('ShopscrollLeft').addEventListener('click', function() {
-    document.getElementById('ShopContainer').scrollBy({
-      left: -300,
-      behavior: 'smooth'
-    });
-});
-  document.getElementById('ShopscrollRight').addEventListener('click', function() {
-    document.getElementById('ShopContainer').scrollBy({
-      left: 300,
-      behavior: 'smooth'
-    });
+
+  rightBtn.addEventListener('click', () => {
+    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
   });
-// alert('Hello, this is a test alert!');
+}
+
+setupScrollButtons('ShopContainer', 'ShopscrollLeft', 'ShopscrollRight', 300);
+setupScrollButtons('categoryContainer', 'scrollLeft', 'scrollRight', 200);
+
+ // alert('Hello, this is a test alert!');
 
 //image
 const fileInput = document.getElementById('fileInput');
