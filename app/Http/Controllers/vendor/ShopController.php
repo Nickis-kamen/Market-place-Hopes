@@ -39,6 +39,7 @@ class ShopController extends Controller
          $request->validate([
             'name' => 'required|string',
             'description' => 'required|string',
+            'adresse' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
@@ -57,6 +58,7 @@ class ShopController extends Controller
             'user_id'  => $user->id,
             'slug'     => Str::slug($request->name),
             'description'  => $request->description,
+            'adresse'  => $request->adresse,
             'image'    => $path,
         ]);
         return redirect('/vendor/shop')->with('success', 'Votre boutique a été créée avec succès.');
@@ -88,8 +90,9 @@ class ShopController extends Controller
         //
         $request->validate([
             'name' => 'required|string|max:255',
-        'description' => 'required|string',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'description' => 'required|string',
+            'adresse' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
 
         $shop = Shop::where('user_id', Auth::id())->firstOrFail();
@@ -101,6 +104,7 @@ class ShopController extends Controller
 
         $shop->name = $request->name;
         $shop->description = $request->description;
+        $shop->adresse = $request->adresse;
         $shop->slug = Str::slug($request->name);
         $shop->save();
 

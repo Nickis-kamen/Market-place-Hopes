@@ -19,10 +19,11 @@ return new class extends Migration
             ->cascadeOnDelete();
             $table->string('slug')->unique();
             $table->longText('description');
+            $table->string('adresse');
             $table->string('image');
             $table->timestamps();
         });
-        
+
 
     }
 

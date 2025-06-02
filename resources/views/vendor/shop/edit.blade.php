@@ -41,6 +41,12 @@
                     class="w-full mt-1 p-2 border border-gray-300 rounded" />
                 </div>
                 <div class="mb-4">
+                    <label for="adresse" class="block text-gray-700">Adresse</label>
+                    <x-error-input name="adresse"/>
+                    <input type="text" id="adresse" name="adresse" value="{{ $shop->adresse }}"
+                    class="w-full mt-1 p-2 border border-gray-300 rounded" />
+                </div>
+                <div class="mb-4">
                     <label for="descri" class="block text-gray-700">Déscription</label>
                     <x-error-input name="description" />
                     <textarea name="description" id="descri" rows="5"

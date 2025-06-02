@@ -21,6 +21,7 @@ class ShopFactory extends Factory
             //
             'user_id' => 3,
             'name' => $name,
+            'adresse' => fake()->address(),
             'slug' => \Illuminate\Support\Str::slug($name),
             'description' => fake()->paragraph(),
             'image' => 'uploads/shops/JwwfbLuQj3qYR5N5AmOqW1tQkrBwKwWyes3h7x9r.jpg',

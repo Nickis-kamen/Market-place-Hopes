@@ -51,31 +51,38 @@ import './bootstrap';
 
 // slide
 function setupScrollButtons(containerId, leftBtnId, rightBtnId, scrollAmount = 300) {
-  const container = document.getElementById(containerId);
-  const leftBtn = document.getElementById(leftBtnId);
-  const rightBtn = document.getElementById(rightBtnId);
+    const container = document.getElementById(containerId);
+    const leftBtn = document.getElementById(leftBtnId);
+    const rightBtn = document.getElementById(rightBtnId);
 
-  if (!container || !leftBtn || !rightBtn) return;
+    if (!container || !leftBtn || !rightBtn) return;
 
-  leftBtn.addEventListener('click', () => {
-    container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-  });
+    leftBtn.addEventListener('click', () => {
+        container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    });
 
-  rightBtn.addEventListener('click', () => {
-    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    rightBtn.addEventListener('click', () => {
+        container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
   });
 }
 
 setupScrollButtons('ShopContainer', 'ShopscrollLeft', 'ShopscrollRight', 300);
 setupScrollButtons('categoryContainer', 'scrollLeft', 'scrollRight', 200);
 
- // alert('Hello, this is a test alert!');
+window.showFull = function(id, element) {
+    const fullDescription = element.getAttribute('data-full-description');
+    const descElement = document.getElementById(`desc-${id}`);
+    if (descElement) {
+        descElement.textContent = fullDescription;
+    }
+};
+//
 
 //image
 const fileInput = document.getElementById('fileInput');
-    const preview = document.getElementById('preview');
+const preview = document.getElementById('preview');
 
-    fileInput.addEventListener('change', function () {
+fileInput.addEventListener('change', function () {
       const file = this.files[0];
       if (file) {
           const reader = new FileReader();

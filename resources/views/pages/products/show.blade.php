@@ -3,7 +3,7 @@
     <x-sidebar-other :user="$user"/>
 
     {{-- Contenu principal --}}
-    <div  class=" py-10 sm:ml-64 mt-20 pb-65">
+    <div  class=" py-10 sm:ml-64 mt-18">
         {{-- Détails du produit --}}
         <div class="max-w-6xl mx-auto px-4">
     {{-- Grille image + infos --}}
@@ -18,8 +18,9 @@
                 <div class="flex flex-col justify-between">
                     <div>
                         <h1 class="text-3xl font-bold text-gray-800 mb-4">{{ $product->title }}</h1>
+                        <p class="text-sm text-gray-400 mb-4"> Ajouté le <span class="text-gray-300">{{$product->created_at->format('d-m-Y') }}</span> par <a href="{{ route('shop.show', $product->shop) }}"><span class="text-blue-500 hover:underline underline-offset-2 pointer">{{ $product->shop->name }}</a></span></p>
                         <div class="mb-4">
-                            <div class="inline-flex items-center gap-2 text-blue-800 px-4 py-2 rounded-xl shadow-inner text-xl font-extrabold tracking-wide hover:bg-gradient-to-r from-blue-500 to-blue-700 hover:text-white transition duration-150">
+                            <div class="inline-flex items-center gap-2 text-blue-800 px-4 py-2 rounded-xl shadow-inner text-xl font-extrabold tracking-wide hover:bg-gradient-to-r from-blue-500 to-blue-700 hover:text-white transition duration-150 cursor-pointer">
                                 {{-- Icône de prix --}}
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z" />
@@ -37,7 +38,7 @@
                         </div>
                         <p class="text-md text-gray-600 mt-2 font-bold mb-1">Catégorie :</p>
                             @foreach ($product->categories as $category)
-                                <span class="inline-block bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-semibold mr-1 mb-1">{{ $category->title }}</span>
+                                <a href="{{ route('category.show', $category) }}"><span class="inline-block bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-semibold mr-1 mb-1">{{ $category->title }}</span></a>
                             @endforeach
 
                         <p class="text-md text-gray-600 mt-2 font-bold mb-1">Déscription :</p>
@@ -79,27 +80,27 @@
                     <h2 class="flex justify-between items-center text-2xl font-semibold text-gray-800 mb-4">Avis des clients
                         <span class="text-sm text-gray-500">({{ $product->ratings->count() }} avis)</span>
                     </h2>
-
+                    <x-success />
                     @forelse ($product->ratings as $rating)
-                        <div class="mb-4 border-b pb-3">
-                            <div class="flex justify-between">
-                                <span class="font-medium text-gray-700">{{ $rating->user->name }}</span>
-                                <div class="mt-4 flex items-center space-x-1">
-                            @for ($i = 1; $i<= $rating->rating; $i++  )
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="inline-block w-5 h-5 text-yellow-400">
-                                    <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" />
-                                </svg>
-                            @endfor
-                            @for ($i = $rating->rating; $i< 5; $i++)
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline-block w-5 h-5 text-yellow-400">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
-                                </svg>
-                            @endfor
+                        <div class="mb-2 border-b pb-1">
+                            <div class="flex items-center justify-between">
+                                <span class="text-md font-bold text-gray-700">{{ $rating->user->name }}</span>
+                                <div class="flex items-center space-x-1">
+                                    @for ($i = 1; $i<= $rating->rating; $i++  )
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="inline-block w-5 h-5 text-yellow-400">
+                                            <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" />
+                                        </svg>
+                                    @endfor
+                                    @for ($i = $rating->rating; $i< 5; $i++)
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline-block w-5 h-5 text-yellow-400">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+                                        </svg>
+                                    @endfor
 
-                        </div>
+                                </div>
                             </div>
-                            <p class="text-sm text-gray-500">{{ $rating->created_at->format('d/m/Y') }}</p>
-                            <p class="mt-2 text-gray-700">{{ $rating->comment }}</p>
+                            <p class="text-sm text-gray-500">{{ $rating->created_at->diffForHumans()}}</p>
+                            <p class="mt-2 px-2 text-gray-700">{{ $rating->comment }}</p>
                         </div>
                     @empty
                         <p class="text-gray-500">Aucun avis pour ce produit pour le moment.</p>

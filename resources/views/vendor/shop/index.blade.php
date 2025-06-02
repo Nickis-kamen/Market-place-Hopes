@@ -11,6 +11,7 @@
                     <img src="{{ asset('storage/'. $shop->image) }}" alt="Logo de la boutique" class="w-full h-full object-cover rounded-full">
                 </div>
                 <p class="mb-4"><strong>Nom : </strong>{{ $shop->name }}</p>
+                <p class="mb-4"><strong>Adresse : </strong>{{ $shop->adresse }}</p>
                 <p class="mb-4"><strong>Description : </strong>{{ $shop->description }}</p>
                 <p><strong>Date de création : </strong>{{ $shop->created_at->translatedFormat('d M Y') }}</p>
             </div>
@@ -38,6 +39,12 @@
                     <label for="name" class="block text-gray-700">Nom</label>
                     <x-error-input name="name" />
                     <input type="text" id="name" name="name"
+                    class="w-full mt-1 p-2 border border-gray-300 rounded" />
+                </div>
+                <div class="mb-4">
+                    <label for="adresse" class="block text-gray-700">Adresse</label>
+                    <x-error-input name="adresse" />
+                    <input type="text" id="adresse" name="adresse"
                     class="w-full mt-1 p-2 border border-gray-300 rounded" />
                 </div>
                 <div class="mb-4">
