@@ -9,6 +9,8 @@
     @csrf
     <div class="mb-5">
     <x-success />
+    <x-error />
+    {{-- @dd(session('error')); --}}
     <x-error-input name="verification"/>
       <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Votre email</label>
       <x-error-input name="email"/>

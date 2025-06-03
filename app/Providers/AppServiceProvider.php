@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -28,8 +29,14 @@ class AppServiceProvider extends ServiceProvider
 
         Carbon::setLocale('fr');
 
-        Blade::if('role', function ($role) {
+        Blade::if('role', function ($role)
+        {
             return Auth::check() && Auth::user()->role === $role;
+        });
+
+        View::composer('*', function ($view)
+        {
+            $view->with('cart', session('cart', []));
         });
     }
 }
