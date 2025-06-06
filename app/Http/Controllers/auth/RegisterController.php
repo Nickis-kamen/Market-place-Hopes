@@ -23,6 +23,7 @@ class RegisterController extends Controller
         $request->validate([
             'name' => 'required|string',
             'email' => 'required|email|unique:users',
+            'date' => 'required',
             'phone' => 'required',
             'address' => 'required',
             'password' => 'required|confirmed|min:6',
@@ -34,6 +35,7 @@ class RegisterController extends Controller
             'name'     => $request->name,
             'email'    => $request->email,
             'phone'    => $request->phone,
+            'date_naissance'=> $request->date,
             'address'  => $request->address,
             'verification_token' => $token,
             'is_verified' => false,
@@ -46,7 +48,8 @@ class RegisterController extends Controller
         return redirect('/login')->with('success', 'Inscription réussie, vérifiez votre email pour activer votre compte.');
     }
 
-    public function showVendorForm(){
+    public function showVendorForm()
+    {
         return view('pages.auth.registerVendor');
     }
 
@@ -54,7 +57,9 @@ class RegisterController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
+            'first_name' => 'required|string',
             'email' => 'required|email|unique:users',
+            'date' => 'required',
             'phone' => 'required',
             'address' => 'required',
             'password' => 'required|confirmed|min:6',
@@ -64,9 +69,11 @@ class RegisterController extends Controller
 
         $user = User::create([
             'name'     => $request->name,
+            'first_name'=> $request->first_name,
             'email'    => $request->email,
             'phone'    => $request->phone,
             'address'  => $request->address,
+            'date_naissance'=> $request->date,
             'verification_token' => $token,
             'is_verified' => false,
             'role'     => 'vendor',

@@ -25,7 +25,8 @@
 
     <x-footer />
 
-    
+
+    <script src="https://js.stripe.com/v3/"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>

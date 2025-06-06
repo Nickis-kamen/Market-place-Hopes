@@ -14,9 +14,19 @@
           <input type="text" id="nom" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"  name="name" />
         </div>
         <div class="mb-5">
+          <label for="prenom" class="block mb-2 text-sm font-medium text-gray-900">Prénom</label>
+          <x-error-input name="first_name"/>
+          <input type="text" id="prenom" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"  name="first_name" />
+        </div>
+        <div class="mb-5">
           <label for="email" class="block mb-2 text-sm font-medium text-gray-900">E-mail</label>
           <x-error-input name="email"/>
           <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="nom@entreprise.com" name="email" />
+        </div>
+        <div class="mb-5">
+          <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Date de naissance</label>
+          <x-error-input name="date"/>
+          <input type="date" id="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="date" />
         </div>
         <div class="mb-5">
             <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Téléphone</label>

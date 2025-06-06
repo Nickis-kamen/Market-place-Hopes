@@ -45,7 +45,7 @@
                             @endfor
                         </div>
                         <div class="text-center mt-4 ">
-                            <p class="text-sm  " id="desc-{{ $shop->id }}">
+                            <p class="text-sm" id="desc-{{ $shop->id }}">
                                 {{ Str::limit($shop->description, 60) }}
                                 @if(strlen($shop->description) > 60)
                                     <button

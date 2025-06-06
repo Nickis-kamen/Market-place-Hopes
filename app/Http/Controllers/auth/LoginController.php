@@ -44,8 +44,6 @@ class LoginController extends Controller
         }
 
         Auth::login($user);
-        $request->session()->regenerate();
-
         if ($user->role === 'customer') {
             return redirect()->intended('/account');
         } elseif ($user->role === 'vendor') {
@@ -53,6 +51,7 @@ class LoginController extends Controller
         } elseif ($user->role === 'admin') {
             return redirect()->intended('/admin/dashboard');
         }
+        $request->session()->regenerate();
 
     }
 

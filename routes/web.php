@@ -5,6 +5,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\ShopController;
@@ -34,14 +35,14 @@ Route::group(['middleware' => 'customer'],function()
     Route::post('/cart/{id}', [CartController::class, 'update']) -> name('cart.update');
     Route::post('/cart/remove/{id}', [CartController::class, 'remove']) -> name('cart.remove');
     Route::get('/checkout', [CheckoutController::class, 'checkout']) -> name('checkout');
-    Route::post('/create-checkout-session', [CheckoutController::class, 'createCheckoutSession'])->name('createCheckoutSession');
-    Route::get('/payment-success', function () {
-        return 'Paiement réussi ✅';
-    })->name('success');
+    Route::post('/checkout-session', [CheckoutController::class, 'createCheckoutSession'])->name('checkout.session');
 
-    Route::get('/payment-cancel', function () {
-        return 'Paiement annulé ❌';
-    })->name('cancel');
+    Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
+    Route::get('/checkout/cancel', [CheckoutController::class, 'cancel'])->name('checkout.cancel');
+
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+
+
 
 });
 

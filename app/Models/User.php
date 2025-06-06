@@ -19,13 +19,16 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'first_name',
         'email',
         'phone',
         'address',
         'role',
+        'date_naissance',
         'password',
         'verification_token',
         'is_verified',
+        'stripe_account_id'
     ];
 
     /**

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,57 +15,180 @@ use Stripe\Stripe;
 class CheckoutController extends Controller
 {
     //
+    // public function checkou()
+    // {
+    //     $user = Auth::user();
+    //     $panier = session('cart', []);
+
+    //     if (empty($panier)) {
+    //         return redirect()->back()->with('error', 'Votre panier est vide.');
+    //     }
+
+    //     $total = collect($panier)->sum(function ($item) {
+    //         return $item['price'] * $item['quantity'];
+    //     });
+
+    //     $items = collect($panier)->map(function ($item) {
+    //         return [
+    //             'image' => $item['image'],
+    //             'name' => $item['title'],
+    //             'price' => $item['price'],
+    //             'quantity' => $item['quantity'],
+    //         ];
+    //     })->values()->toArray();
+
+    //     return view('pages.payment.checkout', [
+    //         'user' => $user,
+    //         'stripeKey' => config('services.stripe.key'),
+    //         'total' => $total,
+    //         'items' => $items,
+    //     ]);
+    // }
     public function checkout()
     {
         $user = Auth::user();
-        $panier = session('cart', []);
-        $total = collect($panier)->sum(fn($item) => $item['price'] * $item['quantity']);
-    // dd(session('panier'));
+        $cart = session('cart', []);
+        // dd(config('services.stripe.key'));
+        if (empty($cart)) {
+            return redirect()->back()->with('error', 'Votre panier est vide.');
+        }
+
+        // Grouper les produits par vendeur
+        $grouped = collect($cart)->groupBy('vendor_id');
+
+        $groupedItems = $grouped->map(function ($items, $vendorId) {
+            $vendor = User::find($vendorId);
+
+            return [
+                'vendor' => $vendor,
+                'items' => $items,
+                'total' => collect($items)->sum(fn($item) => $item['price'] * $item['quantity']),
+            ];
+        });
 
         return view('pages.payment.checkout', [
             'user' => $user,
             'stripeKey' => config('services.stripe.key'),
-            'total' => $total
+            'groupedItems' => $groupedItems,
         ]);
     }
 
     public function createCheckoutSession(Request $request)
     {
+        // dd(config('services.stripe.secret'));
         try {
-            Stripe::setApiKey(env('STRIPE_SECRET'));
+            Stripe::setApiKey(config('services.stripe.secret'));
 
-            $total = $request->input('total') * 100;
+            $items = $request->input('items', []);
+            $vendor_id = $request->input('vendor_id');
 
-            if ($total <= 0) {
-                return response()->json(['error' => 'Montant invalide'], 400);
+            if (empty($items) || !$vendor_id)
+            {
+                return response()->json(['error' => 'Paramètres manquants'], 400);
             }
+
+            $vendor = User::find($vendor_id);
+            if (!$vendor || !$vendor->stripe_account_id)
+            {
+                return response()->json(['error' => 'Vendeur introuvable ou non connecté à Stripe'], 400);
+            }
+
+            $USDRate = 4700;
+            $lineItems = [];
+
+            foreach ($items as $item) {
+                $priceUSD = $item['price'] / $USDRate;
+                $priceCents = intval(round($priceUSD * 100));
+
+                $lineItems[] = [
+                    'price_data' => [
+                        'currency' => 'usd',
+                        'product_data' => [
+                            'name' => $item['title'],
+                        ],
+                        'unit_amount' => $priceCents,
+                    ],
+                    'quantity' => $item['quantity'],
+                ];
+            }
+
+            $commission = intval(round($priceCents * 0.10));
 
             $session = Session::create([
                 'payment_method_types' => ['card'],
-                'line_items' => [[
-                    'price_data' => [
-                        'currency' => 'eur',
-                        'product_data' => [
-                            'name' => 'Commande panier',
-                            'description' => 'Achat effectué sur MarketPlace',
-                        ],
-                        'unit_amount' => $total,
-                    ],
-                    'quantity' => 1,
-                ]],
+                'line_items' => $lineItems,
                 'mode' => 'payment',
-                'billing_address_collection' => 'auto',
                 'customer_email' => $request->user()->email,
-                'success_url' => route('success'),
-                'cancel_url' => route('cancel'),
+                'success_url' => route('checkout.success', ['vendor' => $vendor_id]) . '&session_id={CHECKOUT_SESSION_ID}',
+                'cancel_url' => route('checkout.cancel'),
+                'payment_intent_data' => [
+                    'application_fee_amount' => $commission,
+                    'transfer_data' => [
+                        'destination' => $vendor->stripe_account_id,
+                    ],
+                ],
             ]);
 
             return response()->json(['id' => $session->id]);
 
         } catch (Exception $e) {
-            Log::error("Erreur Stripe : " . $e->getMessage());
-            return response()->json(['error' => 'Erreur lors de la création de la session Stripe'], 500);
+            Log::error('Erreur Stripe : ' . $e->getMessage());
+            return response()->json(['error' => 'Erreur lors de la création de la session'], 500);
         }
+    }
+
+    public function success(Request $request)
+    {
+        $vendorId = $request->vendor;
+        $sessionId = $request->get('session_id');
+
+        if (!$sessionId) {
+            return redirect('/')->with('error', 'Session Stripe invalide.');
+        }
+
+        $cart = session('cart', []);
+
+        // Filtrer les articles de ce vendeur
+        $vendorItems = collect($cart)->filter(fn($item) => $item['vendor_id'] == $vendorId);
+
+        if ($vendorItems->isEmpty()) {
+            return redirect('/')->with('error', 'Aucun article pour ce vendeur.');
+        }
+
+        // Calcul du total
+        $total = $vendorItems->sum(fn($item) => $item['price'] * $item['quantity']);
+
+        // Création de la commande
+        $order = Order::create([
+            'user_id' => Auth::user()->id,
+            'vendor_id' => $vendorId,
+            'total_amount' => $total,
+            'status' => 'en attente', // ou 'en attente' si tu veux les traiter plus tard
+        ]);
+
+        // Enregistrement des produits dans order_items
+        foreach ($vendorItems as $item) {
+            OrderItem::create([
+                'order_id' => $order->id,
+                'product_id' => $item['product']->id,
+                'quantity' => $item['quantity'],
+                'price' => $item['price'],
+            ]);
+        }
+
+        // Mise à jour du panier : on supprime les produits du vendeur concerné
+        foreach ($cart as $productId => $item) {
+            if ($item['vendor_id'] == $vendorId) {
+                unset($cart[$productId]);
+            }
+        }
+        session(['cart' => $cart]);
+
+        return redirect()->route('orders.index')->with('success', 'Paiement effectué avec succès. Votre commande a été enregistrée.');
+    }
+    public function cancel()
+    {
+        return redirect()->route('cart.index')->with('error', 'Le paiement a été annulé.');
     }
 
 }

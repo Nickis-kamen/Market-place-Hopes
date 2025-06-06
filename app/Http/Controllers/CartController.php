@@ -11,6 +11,7 @@ class CartController extends Controller
     //
     public function index()
     {
+        // dd(session()->get('cart', []));
         $user = Auth::user();
         $cart = session()->get('cart', []);
         $total = 0;
@@ -36,10 +37,10 @@ class CartController extends Controller
             "title" => $product->title,
             "quantity" => 1,
             "price" => $product->price,
-            "image" => $product->image
+            "image" => $product->image,
+            "vendor_id" => $product->shop->user_id
         ];
 
-        // dd($cart);
         session()->put('cart', $cart);
 
         return back()->with('success', 'Produit ajouté au panier !');

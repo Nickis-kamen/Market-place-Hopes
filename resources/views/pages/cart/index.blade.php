@@ -69,7 +69,7 @@
                         <path d="M3 3h2l.4 2M7 13h14l-1.35 6.75a1 1 0 01-.98.75H8.3a1 1 0 01-.98-.8L5 4H3"></path>
                     </svg>
                     <p class="text-xl mb-2">Votre panier est vide</p>
-                    <a href="{{ route('home') }}" class="text-blue-600 hover:underline">← Retour à la boutique</a>
+                    <a href="/" class="text-blue-600 hover:underline">← Retour à la boutique</a>
                 </div>
             @endif
         </div>

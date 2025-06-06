@@ -48,6 +48,7 @@ class Shop extends Model
         'name',
         'slug',
         'description',
+        'adresse',
         'image'
     ];
 }
