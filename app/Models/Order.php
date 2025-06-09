@@ -9,12 +9,13 @@ class Order extends Model
 {
     /** @use HasFactory<\Database\Factories\OrderFactory> */
     use HasFactory;
-    
+
     protected $fillable = [
         'user_id',
         'vendor_id',
         'total_amount',
         'status',
+        'stripe_session_id'
     ];
 
     public function user()

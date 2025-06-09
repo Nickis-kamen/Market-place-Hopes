@@ -53,5 +53,7 @@ class Product extends Model
         'price',
         'image',
         'quantity',
+        'is_boosted',
+        'boosted_until'
     ];
 }

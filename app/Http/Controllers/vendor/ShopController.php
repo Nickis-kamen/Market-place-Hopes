@@ -75,17 +75,17 @@ class ShopController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Shop $shop )
     {
         //
-        $shop = Shop::findOrFail($id);
+        // $shop = Shop::findOrFail($id);
         return view('vendor.shop.edit', compact('shop'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(Request $request, Shop $shop)
     {
         //
         $request->validate([
@@ -95,7 +95,7 @@ class ShopController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
 
-        $shop = Shop::where('user_id', Auth::id())->firstOrFail();
+        // $shop = Shop::where('user_id', Auth::id())->firstOrFail();
 
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('uploads/shops', 'public');

@@ -9,8 +9,15 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10 bg-white p-6 rounded-2xl shadow-lg">
 
                 {{-- Image produit à gauche --}}
-                <div class="bg-cover rounded-2xl">
-                    <img src="/storage/{{ $product->image }}" alt="{{ $product->title }}" class="w-full max-w-md h-auto rounded-xl shadow-md bg-cover bg-no-repeat" style="background-image: url('{{ asset('images/wave.svg') }}');">
+                <div class="relative bg-cover rounded-2xl shadow-md bg-no-repeat" style="background-image: url('{{ asset('images/wave.svg') }}');">
+                    @if ($product->boosted_until > now())
+                        <span class="absolute left-4 top-4 bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">Sponsorisé</span>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="absolute right-4 top-4 w-7 h-7 text-yellow-400 cursor-pointer">
+                        <path fill-rule="evenodd" d="M14.615 1.595a.75.75 0 0 1 .359.852L12.982 9.75h7.268a.75.75 0 0 1 .548 1.262l-10.5 11.25a.75.75 0 0 1-1.272-.71l1.992-7.302H3.75a.75.75 0 0 1-.548-1.262l10.5-11.25a.75.75 0 0 1 .913-.143Z" clip-rule="evenodd" />
+                        </svg>
+                    @endif
+                    <img src="/storage/{{ $product->image }}" alt="{{ $product->title }}" class="w-full max-w-md h-auto" >
                 </div>
 
                 {{-- Détails à droite --}}

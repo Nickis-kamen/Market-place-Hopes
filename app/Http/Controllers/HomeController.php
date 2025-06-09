@@ -15,7 +15,17 @@ class HomeController extends Controller
     public function index(){
 
         $user = Auth::user();
-        $products = Product::filter()->limit(12)->latest()->get();
+        $products = Product::filter()
+        ->orderByRaw('
+            CASE 
+                WHEN is_boosted = 1 AND boosted_until > NOW() THEN 1
+                ELSE 0
+            END DESC
+        ')
+        ->latest()
+        ->limit(12)
+        ->get();
+
         $popularProducts = Product::withAvg('ratings', 'rating')
         ->having('ratings_avg_rating', '>=', 4)
         ->take(6)

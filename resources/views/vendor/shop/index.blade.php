@@ -15,7 +15,7 @@
                 <p class="mb-4"><strong>Description : </strong>{{ $shop->description }}</p>
                 <p><strong>Date de création : </strong>{{ $shop->created_at->translatedFormat('d M Y') }}</p>
             </div>
-            <a href="{{ route('vendor.shop.edit', $shop->id) }}" class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition w-full text-center">
+            <a href="{{ route('vendor.shop.edit', $shop) }}" class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition w-full text-center">
                 Modifier
             </a>
         </div>

@@ -23,10 +23,20 @@ class ProductController extends Controller
             {
                 $query->where('categories.id', $categoryId);
             })
-            ->filter()->latest()->paginate(9)->withQueryString();
+            ->filter()->orderByRaw('
+            CASE 
+                WHEN is_boosted = 1 AND boosted_until > NOW() THEN 1
+                ELSE 0
+            END DESC
+            ')->latest()->paginate(9)->withQueryString();
         }else
         {
-            $products = Product::filter()->latest()->paginate(9)->withQueryString();
+            $products = Product::filter()->orderByRaw('
+            CASE 
+                WHEN is_boosted = 1 AND boosted_until > NOW() THEN 1
+                ELSE 0
+            END DESC
+            ')->latest()->paginate(9)->withQueryString();
         }
 
         $productsCount = $products->total();

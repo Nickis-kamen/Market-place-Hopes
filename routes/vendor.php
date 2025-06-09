@@ -12,9 +12,12 @@ Route::group(['middleware' => 'vendor', 'prefix' => 'vendor', 'as' => 'vendor.']
 {
     Route::get('dashboard', [DashboardController::class, 'index']) -> name('dashboard.index');
     Route::resource('products', ProductController::class);
+    Route::post('products/{product}/boost', [ProductController::class, 'boost'])->name('products.boost');
+    Route::get('products/boost/success/{product}', [ProductController::class, 'boostSuccess'])->name('products.boost.success');
+
     Route::resource('shop', ShopController::class);
     Route::get('orders', [OrderController::class, 'index']) -> name('orders.index');
-
+    Route::post('orders/{order}/update-status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
 
     Route::get('stripe', [StripeController::class, 'index'])->name('stripe');
     Route::get('stripe/connect', [StripeController::class, 'createStripeAccount'])->name('stripe.connect');
@@ -23,5 +26,7 @@ Route::group(['middleware' => 'vendor', 'prefix' => 'vendor', 'as' => 'vendor.']
     Route::get('stripe/account/refresh', function () {
         return redirect()->route('stripe.connect');
     })->name('stripe.account.refresh');
+
+
 
 });

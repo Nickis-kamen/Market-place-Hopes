@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Stripe\Checkout\Session;
 use Stripe\Stripe;
+use Stripe\StripeClient;
 
 class CheckoutController extends Controller
 {
@@ -93,26 +94,26 @@ class CheckoutController extends Controller
                 return response()->json(['error' => 'Vendeur introuvable ou non connecté à Stripe'], 400);
             }
 
-            $USDRate = 4700;
+            // $USDRate = 4700;
             $lineItems = [];
 
             foreach ($items as $item) {
-                $priceUSD = $item['price'] / $USDRate;
-                $priceCents = intval(round($priceUSD * 100));
+                $price = $item['price'];
+                // $priceCents = intval(round($priceUSD * 100));
 
                 $lineItems[] = [
                     'price_data' => [
-                        'currency' => 'usd',
+                        'currency' => 'mga',
                         'product_data' => [
                             'name' => $item['title'],
                         ],
-                        'unit_amount' => $priceCents,
+                        'unit_amount' => $price,
                     ],
                     'quantity' => $item['quantity'],
                 ];
             }
 
-            $commission = intval(round($priceCents * 0.10));
+            $commission = intval(round($price * 0.10));
 
             $session = Session::create([
                 'payment_method_types' => ['card'],
@@ -145,7 +146,13 @@ class CheckoutController extends Controller
         if (!$sessionId) {
             return redirect('/')->with('error', 'Session Stripe invalide.');
         }
+        $stripe= new StripeClient(config('services.stripe.secret'));
 
+        $session = $stripe->checkout->sessions->retrieve($sessionId, [
+            'expand' => ['payment_intent'],
+        ]);
+
+        $paymentIntentId = $session->payment_intent->id ?? null;
         $cart = session('cart', []);
 
         // Filtrer les articles de ce vendeur
@@ -163,7 +170,8 @@ class CheckoutController extends Controller
             'user_id' => Auth::user()->id,
             'vendor_id' => $vendorId,
             'total_amount' => $total,
-            'status' => 'en attente', // ou 'en attente' si tu veux les traiter plus tard
+            'status' => 'en attente',
+            'stripe_session_id' => $paymentIntentId,
         ]);
 
         // Enregistrement des produits dans order_items

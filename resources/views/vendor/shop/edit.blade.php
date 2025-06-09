@@ -3,7 +3,7 @@
     <div class="bg-white shadow-md rounded-xl py-10 px-15 w-150 mx-auto mb-5">
             <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Modifier votre boutique</h2>
 
-            <form action="{{ route('vendor.shop.update', $shop->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('vendor.shop.update', $shop) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 {{-- <div class="mb-4 text-center">
