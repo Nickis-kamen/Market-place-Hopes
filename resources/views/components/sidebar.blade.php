@@ -45,6 +45,28 @@
             </a>
           </li>
         @endrole
+        @role('vendor')
+          <li>
+            <a href="{{ route('vendor.dashboard.index') }}" class="flex items-center p-2 rounded-lg dark:text-white hover:bg-gradient-to-r from-blue-500 to-blue-00 group">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                </svg>
+
+                <span class="flex-1 ms-3 whitespace-nowrap">Revenir à votre espace</span>
+            </a>
+          </li>
+        @endrole
+        @role('admin')
+          <li>
+            <a href="{{ route('admin.dashboard.index') }}" class="flex items-center p-2 rounded-lg dark:text-white hover:bg-gradient-to-r from-blue-500 to-blue-00 group">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                </svg>
+
+                <span class="flex-1 ms-3 whitespace-nowrap">Revenir à votre espace</span>
+            </a>
+          </li>
+        @endrole
         @if(!Auth::check())
           <li>
               <a href="{{ route('auth.register.vendor') }}" class="flex items-center p-2 rounded-lg dark:text-white hover:bg-gradient-to-r from-blue-500 to-blue-00 group">

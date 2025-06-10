@@ -75,16 +75,16 @@ class ProductController extends Controller
     public function index()
     {
         //
-        $product = Shop::where('user_id', Auth::id())->first();
-        if($product){
-            $products = Product::where('shop_id', $product->id)->latest()->get();
+        $shop = Shop::where('user_id', Auth::id())->first();
+        if($shop){
+            $products = Product::where('shop_id', $shop->id)->latest()->get();
             return view('vendor.products.index', [
-                'shop' => $product,
+                'shop' => $shop,
                 'products' => $products
             ]);
         }
         return view('vendor.products.index', [
-                'shop' => $product
+                'shop' => $shop
         ]);
     }
 
@@ -133,7 +133,7 @@ class ProductController extends Controller
         ]);
 
         $product->categories()->attach($request->categories);
-    
+
         return redirect('/vendor/products')->with('success', 'Votre produit a été créé avec succès.');
     }
 
@@ -195,7 +195,7 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
 
-        // Détacher les catégories 
+        // Détacher les catégories
         $product->categories()->detach();
 
         // Supprimer le produit

@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\CustomerMiddleware;
+use App\Http\Middleware\SetLocale;
 use App\Http\Middleware\VendorMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -14,13 +15,14 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
         $middleware->alias([
             'vendor' => VendorMiddleware::class,
             'admin' => AdminMiddleware::class,
             'customer' => CustomerMiddleware::class,
         ]);
+        $middleware->append(SetLocale::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();
+

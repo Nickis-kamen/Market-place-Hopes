@@ -63,10 +63,17 @@
                                             <option value="3">3 jours - 13 000 Ar</option>
                                             <option value="7">7 jours - 30 000 Ar</option>
                                         </select>
-                                        <button type="submit"
+                                        @if ($product->is_boosted)
+                                            <button type="submit"
+                                                class="mt-2 w-full bg-indigo-600 text-white px-3 py-1 rounded hover:bg-indigo-700 text-sm font-medium transition">
+                                                ⚡ Booster à nouveau
+                                            </button>
+                                        @else
+                                            <button type="submit"
                                             class="mt-2 w-full bg-indigo-600 text-white px-3 py-1 rounded hover:bg-indigo-700 text-sm font-medium transition">
                                             ⚡ Booster
                                         </button>
+                                        @endif
                                     </form>
                                     @endif
 

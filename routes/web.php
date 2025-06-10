@@ -26,6 +26,7 @@ Route::get('/shop/{shop}', [ShopController::class, 'show']) -> name('shop.show')
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 
 
+
 Route::group(['middleware' => 'customer'],function()
 {
     Route::get('/account', [AccountController::class, 'index']) -> name('account.index');

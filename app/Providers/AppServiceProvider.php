@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Carbon\Carbon;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
@@ -25,9 +26,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
-        Paginator::useBootstrapFive();
-
+        setlocale(LC_TIME, 'fr_FR.UTF-8');
+        App::setLocale('fr');
         Carbon::setLocale('fr');
+        Paginator::useBootstrapFive();
 
         Blade::if('role', function ($role)
         {
@@ -38,5 +40,6 @@ class AppServiceProvider extends ServiceProvider
         {
             $view->with('cart', session('cart', []));
         });
+
     }
 }

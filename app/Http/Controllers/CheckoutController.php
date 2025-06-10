@@ -15,36 +15,7 @@ use Stripe\StripeClient;
 
 class CheckoutController extends Controller
 {
-    //
-    // public function checkou()
-    // {
-    //     $user = Auth::user();
-    //     $panier = session('cart', []);
 
-    //     if (empty($panier)) {
-    //         return redirect()->back()->with('error', 'Votre panier est vide.');
-    //     }
-
-    //     $total = collect($panier)->sum(function ($item) {
-    //         return $item['price'] * $item['quantity'];
-    //     });
-
-    //     $items = collect($panier)->map(function ($item) {
-    //         return [
-    //             'image' => $item['image'],
-    //             'name' => $item['title'],
-    //             'price' => $item['price'],
-    //             'quantity' => $item['quantity'],
-    //         ];
-    //     })->values()->toArray();
-
-    //     return view('pages.payment.checkout', [
-    //         'user' => $user,
-    //         'stripeKey' => config('services.stripe.key'),
-    //         'total' => $total,
-    //         'items' => $items,
-    //     ]);
-    // }
     public function checkout()
     {
         $user = Auth::user();

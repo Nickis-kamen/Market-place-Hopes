@@ -2,8 +2,13 @@
     <div class="p-6">
         <h2 class="text-2xl font-bold text-blue-600 mb-4">Mon espace</h2>
         <p class="text-sm text-gray-500 mt-1 font-semibold">{{ Auth::user()->email }}</p>
+        <a href="/"
+            class="mt-5 inline-flex items-center px-2 py-1 bg-blue-600 hover:bg-blue-700 text-white
+            text-sm rounded shadow-md transition duration-300 ease-in-out">
+            Voir dans l’espace client
+            </a>
     </div>
-    <nav class="mt-6">
+    <nav class="mt-2">
         <ul class="space-y-2 px-4">
             <li>
                 <a href="{{ route('vendor.dashboard.index') }}" class="flex items-center p-2 text-gray-700 hover:bg-blue-100 rounded-lg">
