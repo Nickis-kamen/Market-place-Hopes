@@ -1,42 +1,47 @@
-<x-admin.layout-admin title="Categories">
-    {{-- <x-sidebar-vendor /> --}}
-      {{-- Contenu principal --}}
-      <main class="py-10 px-8 sm:ml-64 h-screen mt-15">
-          <h1 class="text-2xl font-bold mb-6">Liste des categories</h1>
-          @if($categories)
-          <table class="w-full bg-white rounded shadow-md">
-            <thead>
-              <tr class="bg-gray-200 text-left text-sm">
-                <th class="p-3">#</th>
-                <th class="p-3">Titre</th>
-                <th class="p-3">Description</th>
-                <th class="p-3">Nombre de produit</th>
-                <th class="p-3">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {{-- Exemple de ligne de produit --}}
-              @foreach ($categories as $category)
-                <tr class="border-t text-sm">
-                    <td class="p-3">{{ $category->id }}</td>
-                    <td class="p-3">{{ $category->title }}</td>
-                    <td class="p-3">{{ $category->description }}</td>
-                    <td class="p-3">5</td>
-                    <td class="p-3">
-                        <a href="#" class="text-blue-500 hover:underline mr-2">Modifier</a>
-                        <a href="#" class="text-red-500 hover:underline">Supprimer</a>
-                    </td>
-                </tr>
-              @endforeach
-              {{-- Fin de l'exemple --}}
-            </tbody>
-          </table>
-        @else
-            <p class="text-gray-700 mb-4">Aucun categorie.</p>
-        @endif
-        <div class="mt-4">
-            <a href="{{ route('admin.categories.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded">Ajouter une catégorie</a>
+<x-admin.layout-admin title="Catégories">
+    <main class="py-10 px-8 sm:ml-64 bg-gray-50 min-h-screen mt-18">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-bold text-gray-800">Liste des catégories</h1>
+            <a href="{{ route('admin.categories.create') }}"
+               class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm shadow">
+               + Ajouter une catégorie
+            </a>
         </div>
-
-      </main>
-  </x-admin.layout-admin>
+        <x-success />
+        <x-error />
+        @if($categories)
+            <div class="overflow-x-auto bg-white rounded-xl shadow">
+                <table class="min-w-full text-sm text-left text-gray-700">
+                    <thead class="bg-gray-100 text-xs uppercase text-gray-500">
+                        <tr>
+                            <th class="px-6 py-3">#</th>
+                            <th class="px-6 py-3">Titre</th>
+                            <th class="px-6 py-3">Description</th>
+                            <th class="px-6 py-3">Nombre de produits</th>
+                            <th class="px-6 py-3">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($categories as $category)
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-6 py-4 font-medium">{{ $category->id }}</td>
+                                <td class="px-6 py-4 break-words max-w-xs">{{ $category->title }}</td>
+                                <td class="px-6 py-4">{{ Str::limit($category->description, 60) }}</td>
+                                <td class="px-6 py-4">{{ $category->products_count }}</td>
+                                <td class="px-6 py-4">
+                                    {{-- @dd($category) --}}
+                                    <a href="{{ route('admin.categories.edit', $category->id) }}"
+                                       class="text-blue-600 hover:underline mr-3">Modifier</a>
+                                    <a href="#"
+                                       class="text-red-500 hover:underline">Supprimer</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @else
+            <p class="text-gray-600 mt-6">Aucune catégorie trouvée.</p>
+        @endif
+    </main>
+</x-admin.layout-admin>

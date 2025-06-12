@@ -60,8 +60,8 @@
                                         <label for="duration" class="block text-xs font-semibold text-indigo-700 mb-1">Booster pour :</label>
                                         <select name="duration" id="duration" class="w-full text-sm rounded border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 text-center">
                                             <option value="1">1 jour - 5 000 Ar</option>
-                                            <option value="3">3 jours - 13 000 Ar</option>
-                                            <option value="7">7 jours - 30 000 Ar</option>
+                                            <option value="3">3 jours - 15 000 Ar</option>
+                                            <option value="7">7 jours - 35 000 Ar</option>
                                         </select>
                                         @if ($product->is_boosted)
                                             <button type="submit"
@@ -93,8 +93,12 @@
             </table>
 
         @else
-            <p class="text-gray-700 mb-4">Vous n’avez pas encore de boutique.</p>
-            <a href="{{ route('vendor.shop.index') }}" class="bg-blue-600 text-white px-4 py-2 rounded">Créer ma boutique</a>
+        <div class="bg-white p-5 h-100 flex justify-center items-center">
+            <div class="text-center">
+                <p class="text-gray-700 mb-8">Vous n’avez pas encore de boutique.😕</p>
+                <a href="{{ route('vendor.shop.index') }}" class="bg-blue-600 text-white px-4 py-2 rounded">Créer ma boutique</a>
+            </div>
+        </div>
         @endif
     </main>
 </x-vendor.layout-vendor>

@@ -27,7 +27,10 @@ class Product extends Model
 
     }
 
-
+    public function boosts()
+    {
+        return $this->hasMany(Boost::class);
+    }
     public function shop(){
         return $this->belongsTo(Shop::class);
     }

@@ -73,7 +73,7 @@
                 <div class="mb-4">
                     <label for="price" class="block text-gray-700 font-semibold">Quantité</label>
                     <x-error-input name="qty" />
-                    <input type="number" step="0.01" name="quantity" id="qty" class="w-full border p-2 rounded" value="{{ $product->quantity }}">
+                    <input type="number" step="1" name="quantity" id="qty" class="w-full border p-2 rounded" value="{{ $product->quantity }}">
                 </div>
                 <button type="submit"
                 class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Valider</button>

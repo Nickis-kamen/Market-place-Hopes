@@ -19,7 +19,7 @@
 
             </a>
             <a href="">
-                <img src="{{asset(Auth::user()->image) }}" alt="pdp" class="w-10 h-10 rounded-full object-cover border border-white  bg-white">
+                <img src="/storage/{{(Auth::user()->image) }}" alt="pdp" class="w-10 h-10 rounded-full object-cover border border-white  bg-white">
             </a>
         </div>
         @else

@@ -7,6 +7,8 @@ use App\Models\Categorie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
+use function Ramsey\Uuid\v1;
+
 class CategoryController extends Controller
 {
     /**
@@ -15,7 +17,8 @@ class CategoryController extends Controller
     public function index()
     {
         //
-        $categories = Categorie::all();
+        $categories = Categorie::withCount('products')->get();
+        // $categories = Categorie::all();
         return view('admin.category.index',[
             'categories' => $categories
         ]);
@@ -64,6 +67,8 @@ class CategoryController extends Controller
     public function edit(string $id)
     {
         //
+        $category = Categorie::findOrFail($id);
+        return view('admin.category.edit', compact('category'));
     }
 
     /**
@@ -72,6 +77,19 @@ class CategoryController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $category = Categorie::findOrFail($id);
+        $request->validate([
+            'title' => 'required|string',
+            'description' => 'nullable|string',
+        ]);
+
+        $category->title = $request->title;
+        $category->description = $request->description;
+        $category->slug = Str::slug($request->title);
+        $category->save();
+    
+        return redirect('admin/categories')->with('success', 'Categorie mise à jour avec succès.');
+    
     }
 
     /**

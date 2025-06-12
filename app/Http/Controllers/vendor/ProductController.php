@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\vendor;
 
 use App\Http\Controllers\Controller;
+use App\Models\Boost;
 use App\Models\Categorie;
 use App\Models\Product;
 use App\Models\Shop;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -46,7 +48,7 @@ class ProductController extends Controller
             ]],
             'mode' => 'payment',
             'customer_email' => $request->user()->email,
-            'success_url' => route('vendor.products.boost.success', ['duration' => $request->duration, $product]),
+            'success_url' => route('vendor.products.boost.success', ['duration' => $request->duration, $product, 'amount' => $boostPrice]),
             'cancel_url' => route('vendor.products.edit', $product),
         ]);
 
@@ -56,6 +58,7 @@ class ProductController extends Controller
     public function boostSuccess(Request $request, Product $product)
     {
         $duration = (int) $request->duration;
+        $amount = (int) $request->amount;
         // $product = $request->product;
         $user = Auth::user();
 
@@ -70,12 +73,22 @@ class ProductController extends Controller
             'boosted_until' => now()->addDays($duration),
         ]);
 
+        $boost = Boost::create([
+            'product_id' => $product->id,
+            'user_id' => $user->id,
+            'amount' => $amount,
+            'duration_days' => $duration,
+            'starts_at' => now(),
+            'ends_at' => now()->addDays($duration),
+        ]);
         return redirect()->route('vendor.products.index')->with('success', "Le produit a été boosté pour {$duration} jour(s) !");
     }
     public function index()
     {
         //
         $shop = Shop::where('user_id', Auth::id())->first();
+
+
         if($shop){
             $products = Product::where('shop_id', $shop->id)->latest()->get();
             return view('vendor.products.index', [
@@ -96,9 +109,11 @@ class ProductController extends Controller
         //
         $product = Shop::where('user_id', Auth::id())->first();
         $categories = Categorie::all();
+        $stripeId = User::whereNotNull('stripe_account_id')->where('id', Auth::id())->first();
 
         return view('vendor.products.create',[
             'shop' => $product,
+            'stripeId' => $stripeId,
             'categories' => $categories
         ]);
     }
@@ -111,11 +126,11 @@ class ProductController extends Controller
         //
         $request->validate([
             'shop_id' => 'required|exists:shops,id',
-            'title' => 'required|string|max:255',
+            'title' => 'required|string|max:255|regex:/^[\pL\s0-9]+$/u',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'categories' => 'required|array',
             'description' => 'nullable|string',
-            'price' => 'required|numeric|min:0',
+            'price' => 'required|numeric|min:100',
             'quantity' => 'required|integer|min:1'
         ]);
 
@@ -162,11 +177,11 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => 'required|string|max:255|regex:/^[\pL\s0-9]+$/u',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'categories' => 'required|array',
             'description' => 'nullable|string',
-            'price' => 'required|numeric|min:0',
+            'price' => 'required|numeric|min:100',
             'quantity' => 'required|integer|min:1',
         ]);
 

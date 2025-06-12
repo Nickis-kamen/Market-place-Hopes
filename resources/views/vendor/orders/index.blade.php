@@ -1,7 +1,7 @@
 <x-vendor.layout-vendor title="Commandes reçues">
     <div class="py-10 px-6 mt-18 sm:ml-64 min-h-screen bg-gradient-to-b from-indigo-100 to-indigo-200">
         <div class="max-w-5xl mx-auto bg-white p-8 rounded-2xl shadow-xl border border-gray-200">
-            <h2 class="text-3xl font-bold mb-10 text-indigo-800 text-center">📦 Commandes reçues</h2>
+            <h2 class="text-3xl font-bold mb-10 text-indigo-800 text-center">📄 Commandes reçues</h2>
 
             @if (session('success'))
                 <div class="bg-green-100 border border-green-300 text-green-800 text-sm px-4 py-3 rounded mb-6">
@@ -72,7 +72,7 @@
                                     <td class="px-3 py-2">{{ $item->quantity }}</td>
                                     <td class="px-3 py-2">{{ number_format($item->price, 0, ',', ' ') }} Ar</td>
                                     <td class="px-3 py-2 font-semibold">
-                                        {{ number_format($item->price * $item->quantity, 0, ',', ' ') }} Ar
+                                        {{ number_format(($item->price * $item->quantity), 0, ',', ' ') }} Ar
                                     </td>
                                 </tr>
                             @endforeach
@@ -80,7 +80,8 @@
                     </table>
 
                     <div class="text-right font-bold text-gray-700 text-base">
-                        Total : {{ number_format($order->total_amount, 0, ',', ' ') }} Ar
+                        <p class="font-light text-sm mb-1">Frais: {{ number_format(($order->total_amount)*0.10, 0, ',', ' ') }} Ar</p>
+                        Total : {{ number_format(($order->total_amount)*0.90, 0, ',', ' ') }} Ar
                     </div>
                 </div>
             @empty

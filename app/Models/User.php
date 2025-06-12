@@ -53,6 +53,11 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function boosts()
+    {
+        return $this->hasMany(Boost::class);
+    }
     public function shop()
     {
         return $this->hasOne(Shop::class);
