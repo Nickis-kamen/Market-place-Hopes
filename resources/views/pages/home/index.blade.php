@@ -159,7 +159,7 @@
         <div class="relative px-10">
 
             <!-- Bouton de défilement vers la gauche -->
-            <button id="ShopscrollLeft" class="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-white p-2 shadow hover:bg-gray-100">
+            <button id="ShopscrollLeft" class="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-white p-2 shadow hover:bg-gray-100 rounded-lg cursor-pointer">
                 <!-- Icône flèche gauche -->
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -215,7 +215,7 @@
             </div>
 
             <!-- Bouton de défilement vers la droite -->
-            <button id="ShopscrollRight" class="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-white p-2 shadow hover:bg-gray-100">
+            <button id="ShopscrollRight" class="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-white p-2 shadow hover:bg-gray-100 rounded-lg cursor-pointer">
                 <!-- Icône flèche droite -->
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />

@@ -23,7 +23,7 @@
                 </p>
 
                 <div class="flex gap-4 mb-6">
-                    <a href="{{ route('vendor.stripe.login') }}"
+                    <a href="{{ route('vendor.stripe.login') }}" target="_blank"
                        class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow transition">
                         Accéder à Stripe Express
                     </a>

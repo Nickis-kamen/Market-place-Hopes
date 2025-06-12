@@ -38,7 +38,7 @@
             <li>
                 <form method="POST" action="{{ route('logout.store') }}">
                     @csrf
-                    <button type="submit" class="flex items-center w-full p-2 text-red-600 hover:bg-red-100 rounded-lg">
+                    <button type="submit" class="cursor-pointer flex items-center w-full p-2 text-red-600 hover:bg-red-100 rounded-lg">
                             🚪 <span class="ml-2">Déconnexion</span>
                     </button>
                 </form>

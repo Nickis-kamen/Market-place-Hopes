@@ -69,10 +69,18 @@
                                                 ⚡ Booster à nouveau
                                             </button>
                                         @else
-                                            <button type="submit"
-                                            class="mt-2 w-full bg-indigo-600 text-white px-3 py-1 rounded hover:bg-indigo-700 text-sm font-medium transition">
-                                            ⚡ Booster
-                                        </button>
+                                            @if($product->boosts->where('is_approved', false)->isEmpty())
+                                                <button type="submit"
+                                                    class="mt-2 w-full bg-indigo-600 text-white px-3 py-1 rounded hover:bg-indigo-700 text-sm font-medium transition">
+                                                    ⚡ Booster
+                                                </button>
+                                            @else
+                                                <button
+                                                    class="mt-2 w-full bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 text-sm font-medium transition" disabled>
+                                                    ⚡ En attente
+                                                </button>
+                                            @endif
+
                                         @endif
                                     </form>
                                     @endif

@@ -42,6 +42,7 @@ class CategoryController extends Controller
         //
         $request->validate([
             'title' => 'required|string',
+            'slug' => 'unique',
             'description' => 'nullable|string',
         ]);
 
@@ -59,6 +60,8 @@ class CategoryController extends Controller
     public function show(string $id)
     {
         //
+        $category = Categorie::findOrFail($id);
+        return view('admin.category.show', compact('category'));
     }
 
     /**
@@ -79,7 +82,7 @@ class CategoryController extends Controller
         //
         $category = Categorie::findOrFail($id);
         $request->validate([
-            'title' => 'required|string',
+            'title' => 'required|string|unique:categories,title,'. $category->id,
             'description' => 'nullable|string',
         ]);
 
@@ -87,9 +90,9 @@ class CategoryController extends Controller
         $category->description = $request->description;
         $category->slug = Str::slug($request->title);
         $category->save();
-    
+
         return redirect('admin/categories')->with('success', 'Categorie mise à jour avec succès.');
-    
+
     }
 
     /**
@@ -97,6 +100,26 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $category = Categorie::findOrFail($id);
+        // Récupère la catégorie par défaut
+        $defaultCategory = Categorie::where('id', 1)->first();
+
+        // Re-associe chaque produit de cette catégorie à la catégorie par défaut
+        foreach ($category->products as $product) {
+            // Supprime l'ancienne relation
+            $product->categories()->detach($category->id);
+
+            // Vérifie si le produit n'a plus aucune autre catégorie
+            if ($product->categories()->count() === 0) {
+                // Associe à la catégorie "non classé"
+                $product->categories()->attach($defaultCategory->id);
+            }
+        }
+
+        // Supprime la catégorie
+        $category->delete();
+
+        return redirect()->route('admin.categories.index')->with('success', 'Catégorie supprimée et produits reclassés.');
     }
+
 }

@@ -15,6 +15,13 @@ class Boost extends Model
         'duration_days',
         'starts_at',
         'ends_at',
+        'is_approved'
+    ];
+
+    protected $casts = [
+        'starts_at' => 'datetime',
+        'ends_at' => 'datetime',
+        'is_approved' => 'boolean',
     ];
 
     public function product()

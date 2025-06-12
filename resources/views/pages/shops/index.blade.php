@@ -25,7 +25,7 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                 @forelse ($shops as $shop)
-                    <div class="bg-white rounded-3xl shadow-lg hover:shadow-xl p-6 flex flex-col justify-between hover:bg-indigo-500 hover:text-white transition duration-300 ease-in-out hover:scale-105">
+                    <div class="bg-white rounded-3xl shadow-lg hover:shadow-xl p-6 flex flex-col justify-between hover:bg-blue-500 hover:text-white transition duration-300 ease-in-out hover:scale-105">
                         <a href="{{ route('shop.show', $shop) }}" class="flex flex-col items-center space-y-4">
                             <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-indigo-200 shadow-md group-hover:border-white">
                                 <img src="/storage/{{ $shop->image }}" alt="boutique" class="w-full h-full object-cover">

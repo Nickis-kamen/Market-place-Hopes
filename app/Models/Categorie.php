@@ -16,6 +16,7 @@ class Categorie extends Model
     {
         return 'slug';
     }
+    
     public function scopeFilter(Builder | QueryBuilder $query)
     {
         return $query->when(request('search') ?? null, function($query)

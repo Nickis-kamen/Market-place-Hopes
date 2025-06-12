@@ -5,7 +5,8 @@
 
     <section class="p-4 sm:ml-64 bg-[#D6D2FF] mt-18" >
         <x-success />
-        <div class="flex flex-wrap justify-between items-center px-2 py-10" >
+    <div class="bg-white p-4 shadow-md rounded-lg">
+        <div class="flex flex-wrap justify-between items-center px-2 py-5" >
             <h2 class="text-2xl font-bold my-2">Tous les produits ({{ $productsCount }})</h2>
             <form class="max-w-lg">
                 <div class="flex">
@@ -92,7 +93,7 @@
                 </button>
             </div>
         </div>
-
+    </div>
     <div class="mx-auto p-9 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-5">
             @if ($products->isEmpty())
                 <div class="col-span-3 text-center">

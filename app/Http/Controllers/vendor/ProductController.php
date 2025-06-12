@@ -64,24 +64,14 @@ class ProductController extends Controller
 
         // dd($product);
 
-        if ($product->shop->user_id !== $user->id) {
-            abort(403);
-        }
-
-        $product->update([
-            'is_boosted' => true,
-            'boosted_until' => now()->addDays($duration),
-        ]);
 
         $boost = Boost::create([
             'product_id' => $product->id,
             'user_id' => $user->id,
             'amount' => $amount,
             'duration_days' => $duration,
-            'starts_at' => now(),
-            'ends_at' => now()->addDays($duration),
         ]);
-        return redirect()->route('vendor.products.index')->with('success', "Le produit a été boosté pour {$duration} jour(s) !");
+        return redirect()->route('vendor.products.index')->with('success', "Votre boost pour {$duration} jour(s) est encore d'examination !");
     }
     public function index()
     {

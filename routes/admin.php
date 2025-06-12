@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\BoostController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\OrderController;
@@ -20,8 +21,15 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'],fu
     Route::get('user/{id}/show', [UserController::class, 'show']) -> name('user.show');
     Route::resource('categories', CategoryController::class);
     Route::get('products', [ProductController::class, 'index']) -> name('products.index');
+    Route::get('product/{product}/show', [ProductController::class, 'show']) -> name('product.show');
     Route::get('shops', [ShopController::class, 'index']) -> name('shops.index');
     Route::get('shop/{shop}/show', [ShopController::class, 'show']) -> name('shop.show');
     Route::get('orders', [OrderController::class, 'index']) -> name('orders.index');
+    Route::get('order/{order}/show', [OrderController::class, 'show']) -> name('order.show');
+    Route::get('order/{order}/pdf', [OrderController::class, 'generatePdf'])->name('order.pdf');
+    
+    Route::get('boosts', [BoostController::class, 'index']) -> name('boosts.index');
+    Route::post('boosts/{boost}/approve', [BoostController::class, 'approve'])->name('boost.approve');
+
 
 });
