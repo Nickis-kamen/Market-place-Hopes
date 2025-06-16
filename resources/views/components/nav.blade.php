@@ -79,7 +79,7 @@
         </li>
         <li class="relative group">
             <div class="hidden md:block abs absolute -top-15 w-7 h-7 left-1/2 -translate-x-1/2 rotate-45 bg-white group-hover:-top-11 transition-all duration-300shadow-lg"></div>
-          <a href="/" class="block  hover:bg-blue-500 p-2 md:hover:bg-transparent  md:p-0" aria-current="page">Contact</a>
+          <a href="/contact" class="block  hover:bg-blue-500 p-2 md:hover:bg-transparent  md:p-0" aria-current="page">Contact</a>
         </li>
 
       </ul>

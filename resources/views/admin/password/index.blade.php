@@ -1,5 +1,5 @@
 <x-admin.layout-admin title="Changer le mot de passe">
-    <main class="py-10 px-8 sm:ml-64 min-h-screen bg-gray-100 mt-18">
+    <main class="py-10 px-8 md:ml-64 min-h-screen bg-gray-100 mt-18">
         <div class="max-w-xl mx-auto mt-10 bg-white p-8 rounded-xl shadow">
             <h2 class="text-2xl font-bold mb-6 text-gray-700">Changer le mot de passe</h2>
 

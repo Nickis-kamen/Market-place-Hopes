@@ -1,5 +1,5 @@
 <x-admin.layout-admin title="Utilisateurs">
-    <main class="py-10 px-8 sm:ml-64 min-h-screen bg-gray-50 mt-18">
+    <main class="py-10 px-8 md:ml-64 min-h-screen bg-gray-50 mt-18">
         <h1 class="text-3xl font-bold text-gray-800 mb-8">Liste des vendeurs</h1>
 
         @if($vendors && $vendors->count())

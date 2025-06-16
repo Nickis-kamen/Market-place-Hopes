@@ -1,7 +1,7 @@
 <nav class="fixed w-full z-50 top-0 start-0 bg-gradient-to-r from-blue-500 to-blue-800 text-white">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <div class="flex items-center gap-4">
-            <a href="https://flowbite.com/" class="flex items-center gap-1 rtl:space-x-reverse">
+            <a href="" class="flex items-center gap-1 rtl:space-x-reverse">
                 <img src="{{ asset('images/icons.png')}}" class="h-8 md:h-10" alt="MarketPlace Logo">
                 <span class="self-center text-xl md:text-2xl font-semibold whitespace-nowrap">MarketPlace</span>
             </a>

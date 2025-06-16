@@ -5,6 +5,7 @@ use App\Http\Controllers\auth\ProfilController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -50,6 +51,8 @@ Route::group(['middleware' => 'customer'],function()
     Route::post('profile/infromations/update', [ProfilController::class, 'updateInfo'])->name('update-info');
     Route::post('profile/password/update', [ProfilController::class, 'updatePassword'])->name('update-password');
 
+    Route::get('/contact', [ContactController::class, 'showForm'])->name('contact.show');
+    Route::post('/contact/submit', [ContactController::class, 'submitForm'])->name('contact.submit');
 });
 
 

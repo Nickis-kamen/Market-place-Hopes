@@ -1,5 +1,5 @@
 <x-admin.layout-admin title="Catégorie - {{ $category->title }}">
-    <main class="py-10 px-8 sm:ml-64 min-h-screen bg-gray-50 mt-18">
+    <main class="py-10 px-8 md:ml-64 min-h-screen bg-gray-50 mt-18">
         <h1 class="text-4xl font-extrabold text-gray-800 mb-10 flex items-center gap-3">
     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V7a2 2 0 00-2-2h-6l-2-2H6a2 2 0 00-2 2v6m16 0v6a2 2 0 01-2 2h-6l-2 2H6a2 2 0 01-2-2v-6" />
@@ -17,7 +17,7 @@
 
     <div class="space-y-2 text-sm text-gray-600 leading-relaxed">
         <p><span class="font-medium text-gray-800">Description :</span> {{ $category->description }}</p>
-        <p><span class="font-medium text-gray-800">Nombre de produits associés :</span> 
+        <p><span class="font-medium text-gray-800">Nombre de produits associés :</span>
             <span class="inline-block bg-indigo-100 text-indigo-700 text-xs font-semibold px-2 py-1 rounded-full">
                 {{ $category->products->count() }} produit{{ $category->products->count() > 1 ? 's' : '' }}
             </span>

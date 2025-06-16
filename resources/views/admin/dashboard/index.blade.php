@@ -1,5 +1,5 @@
 <x-admin.layout-admin title="Dashboard">
-    <main class="py-10 px-8 sm:ml-64 min-h-screen bg-gray-50 mt-18">
+    <main class="py-10 px-8 md:ml-64 min-h-screen bg-gray-50 mt-18">
         <h1 class="text-4xl font-bold text-gray-700 mb-10 text-center">Tableau de bord</h1>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mb-10">
             <div class="">
@@ -59,7 +59,7 @@
             </div>
 
             <!-- Chiffre d'affaires -->
-            
+
 
             <div class="bg-white rounded-2xl p-6 shadow hover:shadow-lg transition">
                 <div class="flex items-center justify-between mb-2">

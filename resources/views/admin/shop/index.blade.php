@@ -1,5 +1,5 @@
 <x-admin.layout-admin title="Boutiques">
-    <main class="py-10 px-8 sm:ml-64 min-h-screen bg-gray-50 mt-18">
+    <main class="py-10 px-8 md:ml-64 min-h-screen bg-gray-50 mt-18">
         <h1 class="text-3xl font-bold text-gray-800 mb-8">Liste des clients</h1>
 
         @if($shops)
@@ -30,7 +30,7 @@
                                 <td class="px-6 py-4 text-sm text-center space-x-2">
                                     <a href="{{ route('admin.shop.show', $shop) }}" class="inline-block px-3 py-1 text-xs font-semibold text-blue-600 bg-blue-100 rounded hover:bg-blue-200">
                                         Voir
-                                    </a> 
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach

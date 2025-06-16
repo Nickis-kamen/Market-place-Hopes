@@ -1,5 +1,5 @@
 <x-admin.layout-admin title="Détail du produit">
-    <main class="py-10 px-8 sm:ml-64 min-h-screen bg-gray-50 mt-18">
+    <main class="py-10 px-8 md:ml-64 min-h-screen bg-gray-50 mt-18">
         <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-3xl overflow-hidden">
             <div class="grid grid-cols-1 md:grid-cols-2">
                 {{-- Image principale --}}

@@ -1,5 +1,5 @@
 <x-admin.layout-admin title="Détails de la commande #{{ $order->id }}">
-    <main class="py-10 px-8 sm:ml-64 min-h-screen bg-gray-50 mt-18">
+    <main class="py-10 px-8 md:ml-64 min-h-screen bg-gray-50 mt-18">
         <h1 class="text-3xl font-bold text-gray-800 mb-8">Commande #{{ $order->id }}</h1>
 
         <div class="bg-white shadow rounded-2xl p-6 mb-10">
@@ -8,7 +8,7 @@
                 <p><span class="font-medium">Client :</span> {{ $order->user->name ?? '—' }}</p>
                 <p><span class="font-medium">Email :</span> {{ $order->user->email ?? '—' }}</p>
                 <p><span class="font-medium">Date :</span> {{ $order->created_at->format('d M Y à H:i') }}</p>
-                <p><span class="font-medium">Statut :</span> 
+                <p><span class="font-medium">Statut :</span>
                     @php
                         $colors = [
                             'paid' => 'bg-green-100 text-green-800',
@@ -30,7 +30,7 @@
                                 <a href="https://dashboard.stripe.com/test/payments/{{ $order->stripe_session_id }}"
                                     target="_blank"
                                     class="text-sm text-blue-600 hover:underline font-medium">
-                                    {{ Str::limit($order->stripe_session_id, 20) }} 
+                                    {{ Str::limit($order->stripe_session_id, 20) }}
                                 </a>
                     @endif</p>
                 <p><span class="font-medium">Total :</span> <span class="font-semibold text-green-700">{{ number_format($order->total_amount, 0, ',', ' ') }} Ar</span></p>

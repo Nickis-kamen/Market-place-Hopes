@@ -1,9 +1,9 @@
 <x-admin.layout-admin title="Commandes">
-    <main class="py-10 px-8 sm:ml-64 min-h-screen bg-gray-50 mt-18">
+    <main class="py-10 px-8 md:ml-64 min-h-screen bg-gray-50 mt-18">
         <div class="flex justify-between flex-wrap">
         <h1 class="text-3xl font-bold text-gray-800 mb-8">Liste des commandes</h1>
             <form method="GET" class="mb-6 flex flex-wrap justify-end items-end gap-4 bg-white p-4 rounded-xl shadow">
-        
+
                 <div>
                     <label for="month" class="block text-sm font-medium text-gray-700">Mois</label>
                     <select name="month" id="month"
@@ -16,7 +16,7 @@
                         @endfor
                     </select>
                 </div>
-    
+
                 <div>
                     <label for="year" class="block text-sm font-medium text-gray-700">Année</label>
                     <select name="year" id="year"
@@ -27,14 +27,14 @@
                         @endfor
                     </select>
                 </div>
-    
+
                 <div>
                     <button type="submit"
                         class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700">
                         Filtrer
                     </button>
                 </div>
-    
+
                 <div>
                     <a href="{{ route('admin.orders.index') }}"
                         class="inline-flex items-center px-4 py-2 bg-gray-200 text-gray-800 text-sm font-medium rounded-md hover:bg-gray-300">
@@ -70,7 +70,7 @@
                                 <a href="https://dashboard.stripe.com/test/payments/{{ $order->stripe_session_id }}"
                                     target="_blank"
                                     class="text-sm text-blue-600 hover:underline font-medium">
-                                    {{ Str::limit($order->stripe_session_id, 20) }} 
+                                    {{ Str::limit($order->stripe_session_id, 20) }}
                                 </a>
                             @endif</td>
                                 <td class="px-6 py-4 text-sm">

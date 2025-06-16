@@ -1,5 +1,5 @@
 <x-admin.layout-admin title="Catégories">
-    <main class="py-10 px-8 sm:ml-64 min-h-screen bg-gray-50 mt-18">
+    <main class="py-10 px-8 md:ml-64 min-h-screen bg-gray-50 mt-18">
         <div class="flex justify-between items-center mb-8">
             <h1 class="text-3xl font-bold text-gray-800">Liste des catégories</h1>
             <a href="{{ route('admin.categories.create') }}"
@@ -24,7 +24,7 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-100">
-                        @foreach ($categories as $category) 
+                        @foreach ($categories as $category)
                             <tr class="hover:bg-gray-50 transition">
                                 <td class="px-6 py-4 text-sm text-gray-700 font-medium">{{ $category->id }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-900">{{ $category->title }}</td>

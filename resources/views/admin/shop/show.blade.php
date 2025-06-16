@@ -1,7 +1,7 @@
 <x-admin.layout-admin title="Détails de la boutique">
-    <div class="py-10 px-6 sm:ml-64 bg-gray-50 min-h-screen mt-18">
+    <div class="py-10 px-6 md:ml-64 bg-gray-50 min-h-screen mt-18">
         <div class="max-w-3xl mx-auto bg-white rounded-3xl shadow-lg p-8">
-            
+
             <div class="flex flex-col md:flex-row md:items-start md:space-x-8">
                 <!-- Image Boutique -->
                 <div class="flex-shrink-0 mb-6 md:mb-0">
@@ -13,7 +13,7 @@
                 <!-- Infos Boutique -->
                 <div class="text-center md:text-left flex-1">
                     <h2 class="text-3xl font-extrabold text-gray-800 break-words">{{ $shop->name }}</h2>
-                    <p class="text-sm text-gray-400 mt-1">Propriétaire : 
+                    <p class="text-sm text-gray-400 mt-1">Propriétaire :
                         <span class="uppercase font-semibold text-indigo-600"><a href="{{ route('admin.user.show', $shop->user->id) }}">{{ $shop->user->name }}</a></span>
                     </p>
                     <p class="text-sm text-gray-400">Crée le : {{ $shop->created_at->translatedFormat('d F Y') }}</p>
