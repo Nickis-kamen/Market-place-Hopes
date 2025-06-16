@@ -1,5 +1,30 @@
-<footer class="py-14 px-6 sm:px-8 md:ml-64 text-center md:text-left bg-gradient-to-br from-blue-900 to-blue-600 text-white pt-12 shadow-inner">
-  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Marketplace | {{ $title }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"> --}}
+
+    @vite([
+        'resources/css/app.css',
+        'resources/js/app.js'
+    ])
+
+</head>
+<body class=" bg-gray-100 text-gray-800 font-display">
+    @php
+        $cart = session('cart', []);
+    @endphp
+
+    <x-nav />
+
+    {{ $slot }}
+
+    <footer class="py-14 px-6 mt-10 text-center md:text-left sm:px-8 bg-gradient-to-br from-blue-900 to-blue-600 text-white pt-12 shadow-inner">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
 
     <!-- Logo + Slogan -->
     <div>
@@ -56,3 +81,14 @@
     </div>
   </div>
 </footer>
+
+
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+
+</body>
+</html>

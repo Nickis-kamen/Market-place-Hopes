@@ -1,6 +1,6 @@
 <x-vendor.layout-vendor title="Ma Boutique">
     {{-- <x-sidebar-vendor /> --}}
-    <div class="py-10 sm:ml-64 h-screen mt-15 pb-65">
+    <div class="py-10 md:ml-64 h-screen mt-15 pb-65">
         @if($shop)
         <!-- Affichage des détails de la boutique -->
         <div class="bg-white shadow-md rounded-xl py-10 px-15 w-125 mx-auto">

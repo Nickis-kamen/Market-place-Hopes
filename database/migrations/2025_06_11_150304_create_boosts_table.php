@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('boosts', function (Blueprint $table) {
              $table->id();
-            $table->foreignId('product_id')->constrained()->onDelete('cascade'); 
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');   
+            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->integer('amount');     // Montant payé
             $table->integer('duration_days');     // Durée du boost en jours
-            $table->timestamp('starts_at');       // Date de début
-            $table->timestamp('ends_at');         // Date de fin
+            $table->timestamp('starts_at')->nullable();       // Date de début
+            $table->timestamp('ends_at')->nullable();         // Date de fin
             $table->timestamps();
         });
     }

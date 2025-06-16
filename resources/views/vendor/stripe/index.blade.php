@@ -1,5 +1,5 @@
 <x-vendor.layout-vendor title="Stripe">
-    <div class="py-10 sm:ml-64 min-h-screen mt-15 bg-gradient-to-b from-indigo-100 to-indigo-200">
+    <div class="py-10 md:ml-64 min-h-screen mt-15 bg-gradient-to-b from-indigo-100 to-indigo-200">
         <div class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-md border border-gray-200">
             <x-success />
             {{-- Logo Stripe --}}
@@ -18,21 +18,15 @@
                     {{ $user->stripe_account_id }}
                 </div>
 
-                <p class="text-gray-700 mb-4">
+                <p class="text-gray-700 mb-6">
                     Accédez à votre tableau de bord Stripe Express :
                 </p>
 
-                <div class="flex gap-4 mb-6">
+                <div class="text-center  mb-6">
                     <a href="{{ route('vendor.stripe.login') }}" target="_blank"
                        class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow transition">
                         Accéder à Stripe Express
                     </a>
-                    <form action="{{ route('vendor.stripe.delete') }}" method="GET">
-                        <button type="submit"
-                                class="cursor-pointer bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded shadow transition">
-                            Supprimer mon compte Stripe
-                        </button>
-                    </form>
                 </div>
             @else
                 <p class="text-gray-700 mb-6 text-sm">

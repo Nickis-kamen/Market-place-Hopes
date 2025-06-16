@@ -7,6 +7,7 @@ use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\ShopController;
 use App\Http\Controllers\admin\UserController;
+use App\Http\Controllers\auth\ProfilController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -27,9 +28,11 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'],fu
     Route::get('orders', [OrderController::class, 'index']) -> name('orders.index');
     Route::get('order/{order}/show', [OrderController::class, 'show']) -> name('order.show');
     Route::get('order/{order}/pdf', [OrderController::class, 'generatePdf'])->name('order.pdf');
-    
+
     Route::get('boosts', [BoostController::class, 'index']) -> name('boosts.index');
     Route::post('boosts/{boost}/approve', [BoostController::class, 'approve'])->name('boost.approve');
 
+    Route::get('profile/password', [ProfilController::class, 'admin'])->name('password');
+    Route::post('profile/password/update', [ProfilController::class, 'updatePassword'])->name('update-password');
 
 });

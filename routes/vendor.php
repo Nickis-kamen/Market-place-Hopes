@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\auth\ProfilController;
+use App\Http\Controllers\vendor\CustomerController;
 use App\Http\Controllers\vendor\DashboardController;
 use App\Http\Controllers\vendor\OrderController;
 use App\Http\Controllers\vendor\ProductController;
@@ -27,6 +29,11 @@ Route::group(['middleware' => 'vendor', 'prefix' => 'vendor', 'as' => 'vendor.']
         return redirect()->route('stripe.connect');
     })->name('stripe.account.refresh');
 
+    Route::get('profile/password', [ProfilController::class, 'vendor'])->name('password');
+    Route::get('profile/informations', [ProfilController::class, 'infoVendor'])->name('info');
+    Route::get('profile/informations/edit', [ProfilController::class, 'editVendor'])->name('edit');
+    Route::post('profile/infromations/update', [ProfilController::class, 'updateInfo'])->name('update-info');
+    Route::post('profile/password/update', [ProfilController::class, 'updatePassword'])->name('update-password');
 
-
+    Route::get('customer/{customer}/show', [CustomerController::class, 'show'])->name('customer.show');
 });

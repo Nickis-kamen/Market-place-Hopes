@@ -1,7 +1,7 @@
 <x-layout title="Panier">
     <x-sidebar-other :user="$user" />
 
-    <section class="p-4 sm:ml-64 bg-gradient-to-b from-indigo-100 to-[#D6D2FF] mt-18 min-h-screen">
+    <section class="p-4 md:ml-64 bg-gradient-to-b from-indigo-100 to-[#D6D2FF] mt-18 min-h-screen">
         <div class="max-w-6xl mx-auto mt-10 px-6">
             <h2 class="text-3xl font-bold text-gray-800 mb-8">🛒 Votre panier</h2>
             <x-success />

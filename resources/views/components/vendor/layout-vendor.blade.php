@@ -10,7 +10,7 @@
         'resources/css/app.css',
         'resources/js/app.js'
         ])
-    
+
 </head>
 <body class="bg-gray-100 text-gray-800 font-display">
 
@@ -24,8 +24,9 @@
 
     <script src="https://js.stripe.com/v3/"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
+
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
-    
+
 </body>
 </html>

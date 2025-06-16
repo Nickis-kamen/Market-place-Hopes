@@ -1,14 +1,14 @@
 <x-layout title="Boutiques">
     <x-sidebar-other :user="$user"/>
 
-    <section class="p-4 sm:ml-64 bg-gradient-to-b from-indigo-100 to-[#D6D2FF] min-h-screen mt-18">
+    <section class="p-4 md:ml-64 bg-gradient-to-b from-indigo-100 to-[#D6D2FF] min-h-screen mt-18">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
             <div class="flex items-center justify-between mb-12 flex-wrap">
 
-                <h1 class="text-4xl font-extrabold text-gray-800 text-center">
+                <h1 class="text-4xl font-extrabold text-gray-800 text-center mb-2 md:mb-0">
                     Découvrez toutes nos <span class="text-indigo-600">boutiques</span>
                 </h1>
-                <div class="relative">
+                <div class="relative left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0">
                     <form action="{{ route('shops.index') }}" method="GET" class="relative">
                         <input type="search" name="search" value="{{ request('search') }}" id="search-dropdown" class="block p-2.5 w-full pr-10 text-sm text-gray-900 bg-gray-100 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Recherche" />
 

@@ -3,7 +3,7 @@
     <x-sidebar-other :user="$user"/>
 
     {{-- Contenu principal --}}
-    <div  class=" py-10 sm:ml-64 mt-18 ">
+    <div  class=" py-10 md:ml-64 mt-18 ">
         <div class="max-w-6xl mx-auto px-4">
     {{-- Grille image + infos --}}
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10 bg-white p-6 rounded-2xl shadow-lg">

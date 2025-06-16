@@ -1,7 +1,7 @@
 <x-layout title="Mes Commandes">
     <x-sidebar-other :user="$user" />
 
-    <section class="p-8 sm:ml-64 min-h-screen bg-gradient-to-b from-indigo-100 to-indigo-200 mt-18">
+    <section class="p-8 md:ml-64 min-h-screen bg-gradient-to-b from-indigo-100 to-indigo-200 mt-18">
         <div class="max-w-6xl mx-auto bg-white rounded-2xl shadow-lg p-8 border border-gray-200">
             <h2 class="text-3xl font-bold mb-8 text-indigo-800 text-center">🧾 Mes Commandes</h2>
 

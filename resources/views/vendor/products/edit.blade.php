@@ -1,5 +1,5 @@
 <x-vendor.layout-vendor title="Modifier">
-<div class="py-5 sm:ml-64 h-screen mt-18">
+<div class="py-5 md:ml-64 h-screen mt-18">
     <div class="bg-white shadow-md rounded-xl py-10 px-15 w-150 mx-auto">
             <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Modifier la produit</h2>
 

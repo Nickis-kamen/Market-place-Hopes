@@ -45,7 +45,7 @@ class LoginController extends Controller
 
         Auth::login($user);
         if ($user->role === 'customer') {
-            return redirect()->intended('/account');
+            return redirect()->intended('/');
         } elseif ($user->role === 'vendor') {
             return redirect()->intended('/vendor/dashboard');
         } elseif ($user->role === 'admin') {

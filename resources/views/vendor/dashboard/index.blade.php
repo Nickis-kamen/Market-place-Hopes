@@ -1,5 +1,5 @@
 <x-vendor.layout-vendor title="Tableau de bord vendeur">
-<div class="py-10 sm:ml-64 px-6 space-y-10 mt-18">
+<div class="py-10 md:ml-64 px-6 space-y-10 mt-18">
 
     <!-- En-tête de bienvenue -->
     <div class="flex justify-between items-center">
@@ -64,7 +64,9 @@
         <div class="w-full bg-gray-100 rounded flex items-center justify-center text-gray-400">
             <div class="p-6">
                 <h2 class="text-xl font-semibold mb-4">Graphique des ventes (7 derniers jours)</h2>
-                <canvas id="salesChart" width="650" height="300"></canvas>
+                <div class="relative" style="height: 300px">
+                    <canvas id="salesChart"></canvas>
+                </div>
             </div>
         </div>
     </div>

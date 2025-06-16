@@ -3,7 +3,7 @@
     <x-sidebar-other :user="$user"/>
 
     {{-- Contenu principal --}}
-    <div  class=" py-10 sm:ml-64 mt-20 pb-65">
+    <div  class=" py-10 md:ml-64 mt-20 pb-65">
         {{-- Détails du produit --}}
         <div class="max-w-6xl mx-auto px-4">
     {{-- Grille image + infos --}}
@@ -133,6 +133,161 @@
                 @endrole
             </div>
         </div>
+        <div class="mx-auto p-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-5">
+                @if ($products->isEmpty())
+                    <div class="col-span-3 text-center">
+                        <p class="text-gray-500">Aucun produit trouvé.</p>
+                    </div>
+
+                @endif
+        @foreach ($products as $product)
+            <div class="relative bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 flex flex-col">
+                @if ($product->boosted_until > now())
+                    <span class="absolute left-4 top-4 bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">Sponsorisé</span>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="absolute right-4 top-4 w-7 h-7 text-yellow-400 cursor-pointer">
+                    <path fill-rule="evenodd" d="M14.615 1.595a.75.75 0 0 1 .359.852L12.982 9.75h7.268a.75.75 0 0 1 .548 1.262l-10.5 11.25a.75.75 0 0 1-1.272-.71l1.992-7.302H3.75a.75.75 0 0 1-.548-1.262l10.5-11.25a.75.75 0 0 1 .913-.143Z" clip-rule="evenodd" />
+                    </svg>
+                @endif
+            <img src="/storage/{{ $product->image }}" alt="Produit" class="w-70 h-70 object-cover rounded-t-2xl mx-auto">
+
+        <!-- Contenu vertical réparti -->
+        <div class="p-5 flex flex-col flex-1 justify-between">
+            <div>
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">{{ $product->title }}</h3>
+                <p class="text-gray-400">{{ $product->created_at->diffForHumans() }}</p>
+                <p class="text-sm text-gray-600 group-hover:text-white mb-2" id="desc-{{ $product->id }}">
+                    {{ Str::limit($product->description, 60) }}
+                    @if(strlen($product->description) > 60)
+                        <button
+                            class="text-xs text-blue-700 bg-white px-2 py-1 rounded mt-2 ml-2 font-medium group-hover:bg-white hover:bg-blue-100 transition"
+                            data-full-description="{{ $product->description }}"
+                            onclick="showFull({{ $product->id }}, this)">
+                            Lire plus
+                        </button>
+                    @endif
+                </p>
+                <p class="text-blue-800 text-lg font-bold mt-3">{{ number_format($product->price, 0, ',', ' ') }} Ar</p>
+                <p class="text-gray-500 text-sm mt-1">Stock: {{ $product->quantity }}</p>
+            </div>
+
+            <!-- Boutons en bas -->
+            <div class="mt-4">
+                <div class="flex justify-end mb-2">
+                    <a href="{{ route('product.show', $product) }}" class="bg-[#6198ff] px-4 py-2 rounded-lg text-white hover:bg-[#7cb5ff] transition flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="inline-block w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                        </svg>
+                        Voir
+                    </a>
+                </div>
+                @if(!Auth::check())
+                    <form action="{{ route('cart.add') }}#prod" method="POST" class="w-full">
+                        @csrf
+                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+
+                        <button type="submit" class="cursor-pointer w-full  bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition flex items-center gap-2 justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="inline-block w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                            </svg>
+                            Ajouter au panier
+                        </button>
+                    </form>
+                @endif
+                @role('customer')
+                    @if(isset($cart[$product->id]))
+                    <button disabled class="w-full bg-gray-400 text-white py-2 rounded-lg cursor-not-allowed flex items-center gap-2 justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                        </svg>
+                        Déjà dans le panier
+                        </button>
+                    @else
+
+                    <form action="{{ route('cart.add') }}#prod" method="POST" class="w-full">
+                        @csrf
+                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+
+                        <button type="submit" class="cursor-pointer w-full  bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition flex items-center gap-2 justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="inline-block w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                            </svg>
+                            Ajouter au panier
+                        </button>
+                    </form>
+                    @endif
+                @endrole
+                @role('vendor')
+                    <button disabled class="w-full bg-gray-400 text-white py-2 rounded-lg cursor-not-allowed flex items-center gap-2 justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="inline-block w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                                </svg>
+                            Ajouter au panier
+                    </button>
+                @endrole
+                @role('admin')
+                    <button disabled class="w-full bg-gray-400 text-white py-2 rounded-lg cursor-not-allowed flex items-center gap-2 justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="inline-block w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                                </svg>
+                            Ajouter au panier
+                    </button>
+                @endrole
+            </div>
+        </div>
+    </div>
+
+                @endforeach
+            </div>
+            <nav class="mt-8 flex justify-center">
+                <ul class="inline-flex items-center space-x-1 text-sm">
+                    {{-- Page précédente --}}
+                    @if ($products->onFirstPage())
+                        <li class="px-3 py-2 bg-gray-200 text-gray-400 rounded-md cursor-not-allowed">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                            </svg>
+                        </li>
+                    @else
+                        <a href="{{ $products->previousPageUrl() }}" class="">
+                            <li class="px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                                </svg>
+                            </li>
+                        </a>
+                    @endif
+
+                    {{-- Liens de page --}}
+                    @foreach ($products->getUrlRange(1, $products->lastPage()) as $page => $url)
+                        <li>
+                            @if ($page == $products->currentPage())
+                                <span class="px-3 py-2 bg-blue-600 text-white font-bold rounded-md">{{ $page }}</span>
+                            @else
+                                <a href="{{ $url }}" class="px-3 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-blue-100">{{ $page }}</a>
+                            @endif
+                        </li>
+                    @endforeach
+
+                    {{-- Page suivante --}}
+                    @if ($products->hasMorePages())
+                        <a href="{{ $products->nextPageUrl() }}" class="">
+                            <li class="px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </li>
+                        </a>
+                    @else
+                        <li class="px-3 py-2 bg-gray-200 text-gray-400 rounded-md cursor-not-allowed">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </li>
+                    @endif
+                </ul>
+            </nav>
     </div>
     </div>
 

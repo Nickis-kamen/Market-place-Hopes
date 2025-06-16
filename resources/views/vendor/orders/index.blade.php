@@ -1,14 +1,15 @@
 <x-vendor.layout-vendor title="Commandes reçues">
-    <div class="py-10 px-6 mt-18 sm:ml-64 min-h-screen bg-gradient-to-b from-indigo-100 to-indigo-200">
+    <div class="py-10 px-6 mt-18 md:ml-64 min-h-screen bg-gradient-to-b from-indigo-100 to-indigo-200">
         <div class="max-w-5xl mx-auto bg-white p-8 rounded-2xl shadow-xl border border-gray-200">
             <h2 class="text-3xl font-bold mb-10 text-indigo-800 text-center">📄 Commandes reçues</h2>
 
-            @if (session('success'))
+            {{-- @if (session('success'))
                 <div class="bg-green-100 border border-green-300 text-green-800 text-sm px-4 py-3 rounded mb-6">
                     {{ session('success') }}
                 </div>
-            @endif
-
+            @endif --}}
+            <x-success />
+            <x-error />
             @forelse ($orders as $order)
                 <div class="mb-8 p-6 rounded-2xl bg-gray-50 border border-gray-200 shadow-sm hover:shadow-md transition duration-200">
                     <div class="flex justify-between items-center mb-4 flex-wrap gap-2">
@@ -17,7 +18,7 @@
                                 🧾 Commande #{{ $order->id }} – {{ $order->created_at->format('d M Y H:i') }}
                             </p>
                             <p class="text-sm text-gray-600">
-                                👤 Client : <strong>{{ $order->user->name ?? 'Inconnu' }}</strong>
+                                👤 Client : <strong><a href="{{ route('vendor.customer.show', $order->user->id) }}">{{ $order->user->name ?? 'Inconnu' }}</a></strong>
                             </p>
                         </div>
 

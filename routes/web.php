@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\auth\ProfilController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
@@ -43,7 +44,11 @@ Route::group(['middleware' => 'customer'],function()
 
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 
-
+    Route::get('profile/password', [ProfilController::class, 'customer'])->name('password');
+    Route::get('profile/informations', [ProfilController::class, 'infoCustomer'])->name('info');
+    Route::get('profile/informations/edit', [ProfilController::class, 'editCustomer'])->name('edit');
+    Route::post('profile/infromations/update', [ProfilController::class, 'updateInfo'])->name('update-info');
+    Route::post('profile/password/update', [ProfilController::class, 'updatePassword'])->name('update-password');
 
 });
 

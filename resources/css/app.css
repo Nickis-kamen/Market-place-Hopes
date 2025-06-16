@@ -22,3 +22,8 @@
     scrollbar-width: none;     /* Firefox */
   }
 }
+[x-cloak]
+{
+    display: none !important;
+}
+

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\vendor;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,6 +36,26 @@ class OrderController extends Controller
         $validated = $request->validate([
             'status' => 'required|in:paid,unpaid',
         ]);
+
+         // Si on passe à "paid" et qu'avant ce n'était pas encore "paid"
+        if ($validated['status'] === 'paid' && $order->status !== 'paid') {
+
+            // On parcourt tous les produits de la commande
+            foreach ($order->items as $item) {
+                $product = $item->product;
+
+                // On vérifie s’il reste assez de stock (optionnel)
+                if ($product->quantity >= $item->quantity) {
+                    $product->quantity -= $item->quantity;
+                    $product->save();
+                }
+                // Sinon on pourrait lever une erreur ou loguer
+            }
+        }
+
+        if ($order->status === 'paid' && $validated['status'] !== 'paid') {
+            return redirect()->back()->with('error', 'Impossible de modifier une commande déjà payée.');
+        }
 
         $order->status = $validated['status'];
         $order->save();

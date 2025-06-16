@@ -13,7 +13,7 @@
     <!-- Produits -->
 
 
-    <section class="sm:ml-64 bg-[#D6D2FF]" id="prod">
+    <section class="md:ml-64 bg-[#D6D2FF]" id="prod">
         <div class="flex flex-wrap justify-between items-center px-9 py-5 bg-white shadow-lg" >
             <h2 class="flex items-center gap-2 text-2xl font-bold my-2">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
@@ -49,7 +49,7 @@
     @foreach ($products as $product)
         <div class="relative bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 flex flex-col ">
             @if ($product->boosted_until > now())
-                
+
                 <span class="absolute left-4 top-4 bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">Sponsorisé</span>
 
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="absolute right-4 top-4 w-7 h-7 text-yellow-400 cursor-pointer">
@@ -65,8 +65,8 @@
             <h3 class="text-lg font-semibold text-gray-800 mb-3">{{ $product->title }}</h3>
             <p class="text-gray-400">{{ $product->created_at->diffForHumans() }}</p>
             <p class="text-sm text-gray-600 group-hover:text-white mb-2" id="desc-{{ $product->id }}">
-                {{ Str::limit($product->description, 60) }}
-                @if(strlen($product->description) > 60)
+                {{ Str::limit($product->description, 20) }}
+                @if(strlen($product->description) > 20)
                     <button
                         class="text-xs text-blue-700 bg-white px-2 py-1 rounded mt-2 ml-2 font-medium group-hover:bg-white hover:bg-blue-100 transition"
                         data-full-description="{{ $product->description }}"
@@ -154,7 +154,7 @@
             </a>
         </div>
     </section>
-    <section class="px-4 py-10 sm:ml-64 bg-no-repeat bg-[#6198ff] bg-cover" style="background-image: url('{{ asset('images/wave.svg') }}');" >
+    <section class="px-4 py-10 md:ml-64 bg-no-repeat bg-[#6198ff] bg-cover" style="background-image: url('{{ asset('images/wave.svg') }}');" >
         <h2 class="text-2xl font-bold text-center mb-6">Nos Boutiques</h2>
         <div class="relative px-10">
 
@@ -168,49 +168,14 @@
 
 
             <div id="ShopContainer" class="flex items-center overflow-x-auto no-scrollbar snap-x snap-mandatory space-x-4 scroll-smooth py-5 px-2">
-
-                <div class="backdrop-blur-lg bg-white/10 border border-white/20 rounded-xl shadow-lg w-75 flex-shrink-0 p-4 flex flex-col items-center">
-                    <img src="{{ asset('images/bg-header.jpg') }}" alt="" class="w-30 h-30 object-cover mb-4 rounded-full">
-                    <h3 class="text-lg font-semibold mb-2">Shop</h3>
-                    <p class="text-sm text-gray-600 mb-4 text-center">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-                    <a href="" class="mt-auto inline-block bg-white text-blue-600 px-4 py-2 rounded hover:bg-blue-600 hover:text-white">Voir les produits</a>
+                @foreach ($shops as $shop)
+                <div class="hover:bg-blue-500 hover:text-white backdrop-blur-lg bg-white/10 border border-white/20 rounded-xl shadow-lg w-75 flex-shrink-0 p-4 flex flex-col items-center">
+                    <img src="/storage/{{ $shop->image }}" alt="" class="w-30 h-30 object-cover mb-4 rounded-full">
+                    <h3 class="text-lg font-semibold mb-2">{{ $shop->name }}</h3>
+                    <p class="text-sm mb-4 text-center">{{ Str::limit($shop->description, 30) }}</p>
+                    <a href="{{ route('shop.show', $shop )}}" class="mt-auto inline-block bg-white text-blue-600 px-4 py-2 rounded hover:bg-blue-600 hover:text-white">Voir la boutique</a>
                 </div>
-                <div class="backdrop-blur-lg bg-white/10 border border-white/20 rounded-xl shadow-lg w-75 flex-shrink-0 p-4 flex flex-col items-center">
-                    <img src="{{ asset('images/bg-header.jpg') }}" alt="" class="w-30 h-30 object-cover mb-4 rounded-full">
-                    <h3 class="text-lg font-semibold mb-2">Shop</h3>
-                    <p class="text-sm text-gray-600 mb-4 text-center">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-                    <a href="" class="mt-auto inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Voir les produits</a>
-                </div>
-                <div class="backdrop-blur-lg bg-white/10 border border-white/20 rounded-xl shadow-lg w-75 flex-shrink-0 p-4 flex flex-col items-center">
-                    <img src="{{ asset('images/bg-header.jpg') }}" alt="" class="w-30 h-30 object-cover mb-4 rounded-full">
-                    <h3 class="text-lg font-semibold mb-2">Shop</h3>
-                    <p class="text-sm text-gray-600 mb-4 text-center">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-                    <a href="" class="mt-auto inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Voir les produits</a>
-                </div>
-                <div class="backdrop-blur-lg bg-white/10 border border-white/20 rounded-xl shadow-lg w-75 flex-shrink-0 p-4 flex flex-col items-center">
-                    <img src="{{ asset('images/bg-header.jpg') }}" alt="" class="w-30 h-30 object-cover mb-4 rounded-full">
-                    <h3 class="text-lg font-semibold mb-2">Shop</h3>
-                    <p class="text-sm text-gray-600 mb-4 text-center">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-                    <a href="" class="mt-auto inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Voir les produits</a>
-                </div>
-                <div class="backdrop-blur-lg bg-white/10 border border-white/20 rounded-xl shadow-lg w-75 flex-shrink-0 p-4 flex flex-col items-center">
-                    <img src="{{ asset('images/bg-header.jpg') }}" alt="" class="w-30 h-30 object-cover mb-4 rounded-full">
-                    <h3 class="text-lg font-semibold mb-2">Shop</h3>
-                    <p class="text-sm text-gray-600 mb-4 text-center">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-                    <a href="" class="mt-auto inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Voir les produits</a>
-                </div>
-                <div class="backdrop-blur-lg bg-white/10 border border-white/20 rounded-xl shadow-lg w-75 flex-shrink-0 p-4 flex flex-col items-center">
-                    <img src="{{ asset('images/bg-header.jpg') }}" alt="" class="w-30 h-30 object-cover mb-4 rounded-full">
-                    <h3 class="text-lg font-semibold mb-2">Shop</h3>
-                    <p class="text-sm text-gray-600 mb-4 text-center">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-                    <a href="" class="mt-auto inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Voir les produits</a>
-                </div>
-                <div class="backdrop-blur-lg bg-white/10 border border-white/20 rounded-xl shadow-lg w-75 flex-shrink-0 p-4 flex flex-col items-center">
-                    <img src="{{ asset('images/bg-header.jpg') }}" alt="" class="w-30 h-30 object-cover mb-4 rounded-full">
-                    <h3 class="text-lg font-semibold mb-2">Shop</h3>
-                    <p class="text-sm text-gray-600 mb-4 text-center">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-                    <a href="" class="mt-auto inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Voir les produits</a>
-                </div>
+                @endforeach
 
             </div>
 
@@ -223,12 +188,12 @@
             </button>
         </div>
     </section>
-    <section class="py-10 px-4 sm:ml-64 bg-cover" style="background-image: url('{{ asset('images/waves.svg') }}');">
+    <section class="py-10 px-4 md:ml-64 bg-cover" style="background-image: url('{{ asset('images/waves.svg') }}');">
         <h2 class="text-3xl font-bold text-white text-center mb-10">Produits Populaires</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 px-4">
             @foreach ($productsPopulaire as $product)
             <div class="backdrop-blur-lg bg-white/10 border border-white/20 rounded-xl shadow-lg p-4 text-center">
-                <img src="/storage/{{ $product->image }}" alt="{{ $product->name }}" class="w-48 h-48 object-cover mb-4">
+                <img src="/storage/{{ $product->image }}" alt="{{ $product->name }}" class="w-48 h-48 object-cover mb-4 mx-auto">
                 <h3 class="text-lg font-semibold text-white mt-2">{{ $product->title }}</h3>
                     <div class="mt-2 mb-2 flex items-center space-x-1 justify-center">
                             {{-- Affichage des étoiles de notation --}}

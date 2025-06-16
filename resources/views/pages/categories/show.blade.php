@@ -3,7 +3,7 @@
     <x-sidebar-other :user="$user"/>
     <!-- Produits -->
 
-    <section class="p-4 sm:ml-64 bg-[#D6D2FF] mt-18" >
+    <section class="p-4 md:ml-64 bg-[#D6D2FF] mt-18" >
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <h1 class="text-3xl font-bold text-gray-800 mb-12 text-center">
                 Produits dans la catégorie : <span class="text-indigo-600">{{ $category->title }}</span>

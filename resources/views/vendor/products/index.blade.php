@@ -1,7 +1,7 @@
 <x-vendor.layout-vendor title="Mes Produits">
     {{-- <x-sidebar-vendor /> --}}
     {{-- Contenu principal --}}
-    <main class="py-10 px-8 sm:ml-64 h-screen mt-15">
+    <main class="py-10 px-8 md:ml-64 h-screen mt-15">
         <x-success />
         @if($shop)
             <div class="flex items-center justify-between mb-6">
@@ -9,7 +9,7 @@
                 <a href="{{ route('vendor.products.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">Ajouter un produit</a>
             </div>
 
-            <table class="w-full bg-white rounded-xl shadow-md overflow-hidden">
+            <table class="overflow-x-auto w-full bg-white rounded-xl shadow-md overflow-hidden">
                 <thead>
                     <tr class="bg-gradient-to-r from-blue-100 to-blue-200 text-sm text-gray-700 uppercase tracking-wider">
                         <th class="p-4 text-left">Photo</th>

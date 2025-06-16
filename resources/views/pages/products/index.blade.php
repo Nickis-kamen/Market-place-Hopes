@@ -3,7 +3,7 @@
     <x-sidebar-other :user="$user"/>
     <!-- Produits -->
 
-    <section class="p-4 sm:ml-64 bg-[#D6D2FF] mt-18" >
+    <section class="pb-10  md:ml-64 bg-[#D6D2FF] mt-18" >
         <x-success />
     <div class="bg-white p-4 shadow-md rounded-lg">
         <div class="flex flex-wrap justify-between items-center px-2 py-5" >

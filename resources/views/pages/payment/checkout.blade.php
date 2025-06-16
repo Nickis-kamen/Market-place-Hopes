@@ -1,7 +1,7 @@
 <x-layout title="Paiement">
     <x-sidebar-other :user="$user" />
 
-    <section class="p-4 sm:ml-64 bg-gradient-to-b from-indigo-100 to-[#D6D2FF] mt-18 min-h-screen">
+    <section class="p-4 md:ml-64 bg-gradient-to-b from-indigo-100 to-[#D6D2FF] mt-18 min-h-screen">
         <div class="mx-auto bg-white p-6 md:p-10 rounded-2xl shadow-lg max-w-6xl">
             <h2 class="text-3xl font-extrabold text-indigo-700 mb-8 text-center">Paiement par vendeur</h2>
 
@@ -68,7 +68,7 @@
                             }
                         }">
                             <button @click="pay"
-                                class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-lg shadow">
+                                class="cursor-pointer bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-lg shadow">
                                 💳 Payer ce vendeur
                             </button>
                         </div>

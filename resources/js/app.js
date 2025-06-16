@@ -9,16 +9,25 @@ import './bootstrap';
     // });
 
 
-    document.addEventListener('DOMContentLoaded', ()=>{
+    document.addEventListener('DOMContentLoaded', () => {
     const navbar = document.getElementById('navbar');
+    const absList = document.querySelectorAll('.abs');
 
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
             navbar.classList.add('bg-[#ffffffda]', 'shadow-md', 'text-gray-900');
-            navbar.classList.remove('bg-gradient-to-r','from-blue-800', 'to-blue-00', 'text-white');
+            absList.forEach(abs => {
+                abs.classList.add('bg-black');
+                abs.classList.remove('bg-white');
+            });
+            navbar.classList.remove('bg-gradient-to-r', 'from-blue-800', 'to-blue-00', 'text-white');
         } else {
+            absList.forEach(abs => {
+                abs.classList.add('bg-white');
+                abs.classList.remove('bg-black');
+            });
             navbar.classList.remove('bg-[#ffffffda]', 'shadow-md', 'text-gray-900');
-            navbar.classList.add('bg-gradient-to-r','from-blue-800', 'to-blue-00', 'text-white');
+            navbar.classList.add('bg-gradient-to-r', 'from-blue-800', 'to-blue-00', 'text-white');
         }
     });
 

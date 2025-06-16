@@ -21,9 +21,11 @@ class ShopController extends Controller
     public function show(Shop $shop)
     {
         $user = Auth::user();
+        $products = $shop->products()->paginate(6);
         $vendor = $shop->user;
         return view('pages.shops.show', [
             'user' => $user,
+            'products' => $products,
             'shop' => $shop,
             'vendor' => $vendor,
         ]);

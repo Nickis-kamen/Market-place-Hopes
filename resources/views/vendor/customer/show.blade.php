@@ -1,5 +1,5 @@
-<x-admin.layout-admin title="Détails de l'utilisateur">
-    <div class="py-10 px-6 sm:ml-64 bg-gray-50 min-h-screen mt-18">
+<x-vendor.layout-vendor title="Détails de l'utilisateur">
+    <div class="py-10 px-6 md:ml-64 bg-gray-50 min-h-screen mt-18">
         <div class="max-w-2xl mx-auto bg-white rounded-3xl shadow-lg p-8">
             <!-- Profil utilisateur -->
             <div class="flex flex-col md:flex-row items-center md:items-start md:space-x-8">
@@ -42,4 +42,4 @@
             </div>
         </div>
     </div>
-</x-admin.layout-admin>
+</x-vendor.layout-vendor>
