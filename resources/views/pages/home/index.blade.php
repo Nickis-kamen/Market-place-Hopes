@@ -210,7 +210,7 @@
 
                     </div>
                 <p class="text-white font-bold mb-2">{{ number_format($product->price, 0, ',', ' ') }} Ar</p>
-                <a href="" class="inline-block bg-white text-blue-600 px-4 py-2 rounded hover:bg-blue-600 hover:text-white">Voir le produit</a>
+                <a href="{{ route('product.show', $product) }}" class="inline-block bg-white text-blue-600 px-4 py-2 rounded hover:bg-blue-600 hover:text-white">Voir le produit</a>
             </div>
             @endforeach
         </div>

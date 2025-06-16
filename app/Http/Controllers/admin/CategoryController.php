@@ -51,7 +51,7 @@ class CategoryController extends Controller
             'description' => $request->description,
             'slug' => Str::slug($request->title),
         ]);
-        return redirect('admin/categories')->with('success', 'Category created successfully.');
+        return redirect('admin/categories')->with('success', 'Categorie crée avec succès');
     }
 
     /**

@@ -1,7 +1,7 @@
 <x-admin.layout-admin title="Utilisateurs">
     <main class="py-10 px-8 md:ml-64 min-h-screen bg-gray-50 mt-18">
         <h1 class="text-3xl font-bold text-gray-800 mb-8">Liste des clients</h1>
-
+        <x-success />
         @if($customers)
             <div class="bg-white shadow rounded-2xl overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200">
@@ -25,15 +25,29 @@
                                 <td class="px-6 py-4 text-sm text-gray-500">{{ $customer->address ?? '—' }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-500">{{ $customer->phone ?? '—' }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-500">{{ $customer->created_at->format('d M Y') }}</td>
-                                <td class="px-6 py-4 text-sm text-center space-x-2">
+                                <td class="flex px-6 py-4 text-sm text-center space-x-2">
                                     <a href="{{ route('admin.user.show', $customer->id) }}"
                                        class="inline-block px-3 py-1 text-xs font-semibold text-blue-600 bg-blue-100 rounded hover:bg-blue-200">
                                         Voir
                                     </a>
-                                    <a href="#"
-                                       class="inline-block px-3 py-1 text-xs font-semibold text-red-600 bg-red-100 rounded hover:bg-red-200">
-                                        Bloquer
-                                    </a>
+                                    @if ($customer->is_blocked)
+                                    <form action="{{ route('admin.users.unblock', $customer->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit"
+                                           class="cursor-pointer inline-block px-3 py-1 text-xs font-semibold text-green-600 bg-green-100 rounded hover:bg-green-200">
+                                           Débloquer
+                                        </button>
+                                    </form>
+                                    @else
+                                    <form action="{{ route('admin.users.block', $customer->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit"
+                                           class="cursor-pointer inline-block px-3 py-1 text-xs font-semibold text-red-600 bg-red-100 rounded hover:bg-red-200">
+                                           Bloquer
+                                        </button>
+                                    </form>
+
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

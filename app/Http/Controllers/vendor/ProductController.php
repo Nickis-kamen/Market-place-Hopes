@@ -116,7 +116,7 @@ class ProductController extends Controller
         //
         $request->validate([
             'shop_id' => 'required|exists:shops,id',
-            'title' => 'required|string|max:255|regex:/^[\pL\s0-9]+$/u',
+            'title' => 'required|string|max:255|regex:/^[\pL\s0-9\-\',\.\(\)]+$/u',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'categories' => 'required|array',
             'description' => 'nullable|string',

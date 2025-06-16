@@ -28,7 +28,8 @@ class User extends Authenticatable
         'password',
         'verification_token',
         'is_verified',
-        'stripe_account_id'
+        'stripe_account_id',
+        'is_blocked',
     ];
 
     /**

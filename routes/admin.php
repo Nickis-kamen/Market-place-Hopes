@@ -35,4 +35,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'],fu
     Route::get('profile/password', [ProfilController::class, 'admin'])->name('password');
     Route::post('profile/password/update', [ProfilController::class, 'updatePassword'])->name('update-password');
 
+    Route::post('users/{id}/block', [UserController::class, 'block'])->name('users.block');
+    Route::post('users/{id}/unblock', [UserController::class, 'unblock'])->name('users.unblock');
+
 });

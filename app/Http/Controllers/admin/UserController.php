@@ -29,5 +29,22 @@ class UserController extends Controller
 
         return view('admin.users.show', compact('user'));
     }
+    public function block($id)
+    {
+        $user = User::findOrFail($id);
+        $user->is_blocked = true;
+        $user->save();
+
+        return redirect()->back()->with('success', 'Utilisateur bloqué avec succès.');
+    }
+
+    public function unblock($id)
+    {
+        $user = User::findOrFail($id);
+        $user->is_blocked = false;
+        $user->save();
+
+        return redirect()->back()->with('success', 'Utilisateur débloqué avec succès.');
+    }
 
 }

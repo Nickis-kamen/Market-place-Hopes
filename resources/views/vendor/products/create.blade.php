@@ -65,7 +65,7 @@
                 <input type="hidden" name="shop_id" value="{{ $shop->id }}">
 
                 <div class="mt-10 text-center">
-                    <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">
+                    <button type="submit" class="cursor-pointer bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">
                         Créer le produit
                     </button>
                 </div>

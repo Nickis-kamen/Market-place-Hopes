@@ -42,6 +42,14 @@ class LoginController extends Controller
                 'verification' => 'Vous devez vérifier votre adresse email avant de vous connecter.',
             ])->onlyInput('email');
         }
+        // Vérifie si l'utilisateur est bloqué
+        if ($user->is_blocked) {
+            Auth::logout();
+            return redirect('/login')->withErrors([
+                'email' => 'Votre compte a été bloqué.'
+            ]);
+        }
+
 
         Auth::login($user);
         if ($user->role === 'customer') {

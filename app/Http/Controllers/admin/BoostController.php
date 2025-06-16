@@ -24,7 +24,7 @@ class BoostController extends Controller
         $boost->update([
             'is_approved' => true,
             'starts_at' => $now,
-            'ends_at' => $now->addDays($boost->duration_days),
+            'ends_at' => $now->copy()->addDays($boost->duration_days),
         ]);
 
         // Mettre à jour le produit boosté
