@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\VendorOrderNotification;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\User;
@@ -9,6 +10,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Stripe\Checkout\Session;
 use Stripe\Stripe;
 use Stripe\StripeClient;
@@ -154,6 +156,10 @@ class CheckoutController extends Controller
                 'price' => $item['price'],
             ]);
         }
+        $order->load('items.product', 'vendor', 'user');
+
+        // Envoyer l'email au vendeur
+        Mail::to($order->vendor->email)->send(new VendorOrderNotification($order));
 
         // Mise à jour du panier : on supprime les produits du vendeur concerné
         foreach ($cart as $productId => $item) {
@@ -162,6 +168,8 @@ class CheckoutController extends Controller
             }
         }
         session(['cart' => $cart]);
+
+
 
         return redirect()->route('orders.index')->with('success', 'Paiement effectué avec succès. Votre commande a été enregistrée.');
     }
