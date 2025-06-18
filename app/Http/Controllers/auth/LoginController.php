@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\VerifyEmail;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
@@ -38,6 +41,11 @@ class LoginController extends Controller
         }
 
         if (!$user->is_verified) {
+
+            $token = $user->verification_token ?? Str::random(64);
+
+            Mail::to($user->email)->send(new VerifyEmail($user, $token));
+
             return back()->withErrors([
                 'verification' => 'Vous devez vérifier votre adresse email avant de vous connecter.',
             ])->onlyInput('email');

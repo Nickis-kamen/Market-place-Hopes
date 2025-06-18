@@ -18,7 +18,7 @@
                 <div class="flex flex-col justify-between">
                     <div>
                         <h1 class="text-3xl font-bold text-gray-800 mb-4">{{ $shop->name }}</h1>
-                        <p class="text-gray-600 mb-4">Boutique de <span class="text-blue-500">{{ $vendor->name }}</span></p>
+                        <p class="text-gray-600 mb-4">Boutique de <a href="{{ route('vendor.show', $vendor->id) }}"><span class="text-blue-500">{{ $vendor->name }}</span></a></p>
 
                         <p class="flex items-center gap-1 text-sm text-gray-600 mb-4">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">

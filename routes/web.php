@@ -11,6 +11,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\VendorControler;
 use Illuminate\Support\Facades\Route;
 
 
@@ -27,6 +28,7 @@ Route::get('/shop/{shop}', [ShopController::class, 'show']) -> name('shop.show')
 
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 
+Route::get('vendor/{vendor}/show', [VendorControler::class, 'show'])->name('vendor.show');
 
 
 Route::group(['middleware' => 'customer'],function()
@@ -53,6 +55,7 @@ Route::group(['middleware' => 'customer'],function()
 
     Route::get('/contact', [ContactController::class, 'showForm'])->name('contact.show');
     Route::post('/contact/submit', [ContactController::class, 'submitForm'])->name('contact.submit');
+
 });
 
 

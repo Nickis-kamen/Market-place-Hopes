@@ -24,7 +24,7 @@ class RatingController extends Controller
                       ->first();
 
         if ($existing) {
-            return back()->with('error', 'Vous avez déjà noté ce produit.');
+            return back()->with('error', 'Vous avez déjà mis une note.');
         }
 
         Rating::create([

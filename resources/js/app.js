@@ -11,11 +11,14 @@ import './bootstrap';
 
     document.addEventListener('DOMContentLoaded', () => {
     const navbar = document.getElementById('navbar');
+    const btn = document.getElementById('btn');
     const absList = document.querySelectorAll('.abs');
 
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
             navbar.classList.add('bg-[#ffffffda]', 'shadow-md', 'text-gray-900');
+            btn.classList.remove('text-white');
+            btn.classList.add('text-black');
             absList.forEach(abs => {
                 abs.classList.add('bg-black');
                 abs.classList.remove('bg-white');
@@ -26,6 +29,8 @@ import './bootstrap';
                 abs.classList.add('bg-white');
                 abs.classList.remove('bg-black');
             });
+            btn.classList.remove('text-black');
+            btn.classList.add('text-white');
             navbar.classList.remove('bg-[#ffffffda]', 'shadow-md', 'text-gray-900');
             navbar.classList.add('bg-gradient-to-r', 'from-blue-800', 'to-blue-00', 'text-white');
         }

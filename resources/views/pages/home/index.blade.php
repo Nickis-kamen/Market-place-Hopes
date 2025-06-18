@@ -39,13 +39,13 @@
             </form>
         </div>
 
-    <div class="mx-auto p-9 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-5">
+    <div class=" mx-auto p-9 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-5">
         @if ($products->isEmpty())
                 <div class="col-span-3 text-center">
                     <p class="text-gray-500">Aucun produit trouvé.</p>
                 </div>
 
-            @endif
+        @endif
     @foreach ($products as $product)
         <div class="relative bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 flex flex-col ">
             @if ($product->boosted_until > now())
@@ -154,40 +154,56 @@
             </a>
         </div>
     </section>
-    <section class="px-4 py-10 md:ml-64 bg-no-repeat bg-[#6198ff] bg-cover" style="background-image: url('{{ asset('images/wave.svg') }}');" >
-        <h2 class="text-2xl font-bold text-center mb-6">Nos Boutiques</h2>
-        <div class="relative px-10">
+    <section class="px-4 py-10 md:ml-64 bg-no-repeat bg-[#6198ff] bg-cover" style="background-image: url('{{ asset('images/wave.svg') }}');">
+        <h2 class="text-2xl md:text-3xl font-bold text-center text-gray-700 mb-10">Nos Boutiques</h2>
+        <div class="relative px-4 md:px-10">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    @foreach ($shops as $shop)
+                    <div class="swiper-slide flex justify-center">
+                        <div class="group relative overflow-hidden rounded-2xl w-[270px] sm:w-[300px] bg-white/20 border border-white/30 backdrop-blur-xl shadow-lg p-6 text-center text-gray-800 hover:bg-blue-500 hover:text-white transition duration-300">
+                            <!-- Image -->
+                            <img src="/storage/{{ $shop->image }}" alt="{{ $shop->name }}"
+                                class="w-24 h-24 object-cover mb-4 rounded-full border-2 border-white shadow mx-auto transition duration-300 group-hover:scale-105">
+                    
+                            <!-- Titre -->
+                            <h3 class="text-lg font-bold mb-1 group-hover:text-white transition duration-300">{{ $shop->name }}</h3>
+                    
+                            <!-- Description -->
+                            <p class="text-sm text-gray-700 group-hover:text-gray-100 mb-10 transition duration-300">
+                                {{ Str::limit($shop->description, 50) }}
+                            </p>
+                    
+                            <!-- Slide-in Button -->
+                            <div class="absolute bottom-0 left-0 w-full
+                                        translate-y-0
+                                        md:translate-y-full
+                                        md:group-hover:translate-y-0
+                                        transition-transform duration-500">
+                                <a href="{{ route('shop.show', $shop ) }}"
+                                class="block bg-white text-blue-600 font-medium py-2 rounded-t-xl hover:bg-gray-200 transition duration-300">
+                                    Voir la boutique
+                                </a>
+                            </div>
+                        </div>
 
-            <!-- Bouton de défilement vers la gauche -->
-            <button id="ShopscrollLeft" class="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-white p-2 shadow hover:bg-gray-100 rounded-lg cursor-pointer">
-                <!-- Icône flèche gauche -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                </svg>
-            </button>
-
-
-            <div id="ShopContainer" class="flex items-center overflow-x-auto no-scrollbar snap-x snap-mandatory space-x-4 scroll-smooth py-5 px-2">
-                @foreach ($shops as $shop)
-                <div class="hover:bg-blue-500 hover:text-white backdrop-blur-lg bg-white/10 border border-white/20 rounded-xl shadow-lg w-75 flex-shrink-0 p-4 flex flex-col items-center">
-                    <img src="/storage/{{ $shop->image }}" alt="" class="w-30 h-30 object-cover mb-4 rounded-full">
-                    <h3 class="text-lg font-semibold mb-2">{{ $shop->name }}</h3>
-                    <p class="text-sm mb-4 text-center">{{ Str::limit($shop->description, 30) }}</p>
-                    <a href="{{ route('shop.show', $shop )}}" class="mt-auto inline-block bg-white text-blue-600 px-4 py-2 rounded hover:bg-blue-600 hover:text-white">Voir la boutique</a>
+                    </div>
+                    @endforeach
                 </div>
-                @endforeach
 
+                <!-- Pagination -->
+                <div class="mt-10">
+                    <div class="swiper-pagination "></div>
+                </div>
+
+                <!-- Navigation buttons -->
+                <div class="swiper-button-prev !-mt-12 !hidden md:!block  !text-white"></div>
+                <div class="swiper-button-next !-mt-12 !mr-3 !hidden md:!block !text-white"></div>
             </div>
-
-            <!-- Bouton de défilement vers la droite -->
-            <button id="ShopscrollRight" class="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-white p-2 shadow hover:bg-gray-100 rounded-lg cursor-pointer">
-                <!-- Icône flèche droite -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
-            </button>
         </div>
     </section>
+
+
     <section class="py-10 px-4 md:ml-64 bg-cover" style="background-image: url('{{ asset('images/waves.svg') }}');">
         <h2 class="text-3xl font-bold text-white text-center mb-10">Produits Populaires</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 px-4">
@@ -210,7 +226,7 @@
 
                     </div>
                 <p class="text-white font-bold mb-2">{{ number_format($product->price, 0, ',', ' ') }} Ar</p>
-                <a href="{{ route('product.show', $product) }}" class="inline-block bg-white text-blue-600 px-4 py-2 rounded hover:bg-blue-600 hover:text-white">Voir le produit</a>
+                <a href="{{ route('product.show', $product) }}" class="inline-block bg-white text-blue-600 px-4 py-2 rounded hover:bg-blue-600 border hover:border-white hover:text-white">Voir le produit</a>
             </div>
             @endforeach
         </div>
