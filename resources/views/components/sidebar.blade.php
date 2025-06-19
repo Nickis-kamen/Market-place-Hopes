@@ -1,5 +1,5 @@
 <!-- Bouton pour ouvrir la sidebar - visible uniquement sur mobile -->
-<button
+<button id="btn2"
     data-drawer-target="default-sidebar"
     data-drawer-toggle="default-sidebar"
     aria-controls="default-sidebar"

@@ -1,7 +1,7 @@
 <x-vendor.layout-vendor title="Creation">
     {{-- <x-sidebar-vendor /> --}}
       {{-- Contenu principal --}}
-      <main class="py-10 px-8 md:ml-64 h-screen mt-15  mb-25">
+      <main class="py-10 md:px-8 px-0 md:ml-64 h-screen mt-15  mb-25">
           <div class="bg-white shadow-md rounded-xl py-10 px-12 w-full max-w-2xl mx-auto">
               <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Créer un nouveau produit</h2>
             @if($stripeId)

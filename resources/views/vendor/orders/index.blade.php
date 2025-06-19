@@ -1,6 +1,6 @@
 <x-vendor.layout-vendor title="Commandes reçues">
-    <div class="py-10 px-6 mt-18 md:ml-64 min-h-screen bg-gradient-to-b from-indigo-100 to-indigo-200">
-        <div class="max-w-5xl mx-auto bg-white p-8 rounded-2xl shadow-xl border border-gray-200">
+    <div class="py-10 md:px-6 px-0 mt-18 md:ml-64 min-h-screen bg-gradient-to-b from-indigo-100 to-indigo-200">
+        <div class="w-full md:max-w-5xl mx-auto bg-white md:px-8 py-8 rounded-2xl shadow-xl border border-gray-200">
             <h2 class="text-3xl font-bold mb-10 text-indigo-800 text-center">📄 Commandes reçues</h2>
 
             {{-- @if (session('success'))
@@ -84,6 +84,11 @@
                         <p class="font-light text-sm mb-1">Frais: {{ number_format(($order->total_amount)*0.10, 0, ',', ' ') }} Ar</p>
                         Total : {{ number_format(($order->total_amount)*0.90, 0, ',', ' ') }} Ar
                     </div>
+                    <a href="{{ route('order.pdf', $order) }}"
+                        class="inline-block mt-5 px-3 py-1 font-semibold text-white bg-red-600 rounded hover:bg-red-200 hover:text-red-600"
+                        target="_blank">
+                        Imprimer en PDF
+                    </a>
                 </div>
             @empty
                 <div class="text-center text-gray-600 text-lg py-12">

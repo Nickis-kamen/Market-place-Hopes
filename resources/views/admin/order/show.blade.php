@@ -67,7 +67,7 @@
                 </div>
             </div>
             <div class="flex justify-end">
-                <a href="{{ route('admin.order.pdf', $order) }}"
+                <a href="{{ route('order.pdf', $order) }}"
                 class="inline-block mt-5 text-xl px-3 py-1 font-semibold text-white bg-red-600 rounded hover:bg-red-200 hover:text-red-600"
                 target="_blank">
                 Imprimer en PDF

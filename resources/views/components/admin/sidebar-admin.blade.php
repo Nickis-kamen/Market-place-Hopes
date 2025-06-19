@@ -10,7 +10,7 @@
     </svg>
 </button>
 
-<aside id="default-sidebar" class="fixed top-18 left-0 z-40 w-64 h-screen bg-blue-950 text-white transition-transform -translate-x-full duration-100 ease-in-out md:translate-x-0">
+<aside id="default-sidebar" class="fixed  pt-15 md:pt-20 left-0 z-40 w-64 h-screen bg-blue-950 text-white transition-transform -translate-x-full duration-100 ease-in-out md:translate-x-0">
     <div class="p-4 text-xl font-bold">
         <div class="flex items-center mb-4 justify-between">
             <h2 class="text-2xl font-bold text-gray-200 ">Mon espace</h2>

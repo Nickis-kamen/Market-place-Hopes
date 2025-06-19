@@ -14,7 +14,7 @@
                 <button @click="open = !open" class="focus:outline-none cursor-pointer">
                     <img src="/storage/{{ Auth::user()->image }}"
                         alt="Photo de profil"
-                        class="w-full h-full rounded-full object-cover border bg-white border-gray-300 shadow">
+                        class="w-full h-full object-cover aspect-square rounded-full border bg-white border-gray-300 shadow">
                 </button>
                 <div x-show="open"
                     x-cloak

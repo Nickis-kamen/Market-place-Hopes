@@ -27,7 +27,6 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'],fu
     Route::get('shop/{shop}/show', [ShopController::class, 'show']) -> name('shop.show');
     Route::get('orders', [OrderController::class, 'index']) -> name('orders.index');
     Route::get('order/{order}/show', [OrderController::class, 'show']) -> name('order.show');
-    Route::get('order/{order}/pdf', [OrderController::class, 'generatePdf'])->name('order.pdf');
 
     Route::get('boosts', [BoostController::class, 'index']) -> name('boosts.index');
     Route::post('boosts/{boost}/approve', [BoostController::class, 'approve'])->name('boost.approve');

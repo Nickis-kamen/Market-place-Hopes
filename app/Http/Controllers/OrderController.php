@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,6 +22,11 @@ class OrderController extends Controller
             'orders' => $orders,
             'user' => $user,
         ]);
+    }
+    public function generatePdf(Order $order)
+    {
+        $pdf = Pdf::loadView('admin.order.pdf', compact('order'));
+        return $pdf->download('commande-'.$order->id.'.pdf');
     }
 
 }

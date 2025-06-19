@@ -1,10 +1,10 @@
 <x-admin.layout-admin title="Catégorie - {{ $category->title }}">
     <main class="py-10 px-8 md:ml-64 min-h-screen bg-gray-50 mt-18">
-        <h1 class="text-4xl font-extrabold text-gray-800 mb-10 flex items-center gap-3">
+        <h1 class="text-4xl font-extrabold text-gray-800 mb-10 flex flex-wrap items-center gap-3">
     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V7a2 2 0 00-2-2h-6l-2-2H6a2 2 0 00-2 2v6m16 0v6a2 2 0 01-2 2h-6l-2 2H6a2 2 0 01-2-2v-6" />
     </svg>
-    Catégorie : <span class="ml-2 text-indigo-700">{{ $category->title }}</span>
+    <p>Catégorie : </p><span class="block ml-2 text-indigo-700">{{ $category->title }}</span>
 </h1>
 
 <div class="bg-white shadow-md rounded-2xl p-6 mb-10">

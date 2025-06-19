@@ -3,11 +3,30 @@
     <x-sidebar :user="$user"/>
     <!-- Hero section -->
     <x-success />
-<section id="section-1" class="relative h-screen bg-cover bg-center bg-no-repeat" style="background-image: url('{{ asset('images/bg-header.jpg') }}');">
-    <div class="absolute inset-0 bg-[#00000091]  flex flex-col justify-center items-center text-center px-4 ">
-        <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-6 drop-shadow-lg">Bienvenue sur notre Marketplace</h2>
-        <p class="text-xl md:text-2xl text-purple-300 font-medium">Trouvez les meilleurs produits au meilleur prix</p>
+<section id="section-1" class="relative h-screen">
+    <!-- Swiper -->
+    <div class="swiper hero-swiper h-screen">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide h-screen bg-cover bg-center bg-no-repeat" style="background-image: url('{{ asset('images/bg-header.jpg') }}');"></div>
+            <div class="swiper-slide h-screen bg-cover bg-center bg-no-repeat" style="background-image: url('{{ asset('images/bg-header2.jpg') }}');"></div>
+            <div class="swiper-slide h-screen bg-cover bg-center bg-no-repeat" style="background-image: url('{{ asset('images/bg-header3.jpg') }}');"></div>
+        </div>
     </div>
+
+    <!-- Overlay + Texte -->
+    <div class="absolute inset-0 bg-black/60 flex flex-col justify-center items-center text-center px-4 z-10">
+
+    <h2 data-aos="fade-up"
+        data-aos-delay="600"
+        class="text-4xl md:text-5xl font-extrabold text-white mb-4 drop-shadow-[0_1px_1px_rgba(255,255,255,0.5)] leading-tight ">
+        Bienvenue sur notre <span class="text-blue-200 drop-shadow-xl">Marketplace</span>
+    </h2>
+
+    <p class="text-lg text-gray-200 max-w-xl font-medium">
+        Découvrez une large sélection de produits de qualité au meilleur prix, proposés par nos vendeurs de confiance.
+    </p>
+</div>
+
 </section>
 
     <!-- Produits -->
@@ -46,8 +65,10 @@
                 </div>
 
         @endif
-    @foreach ($products as $product)
-        <div class="relative bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 flex flex-col ">
+    @foreach ($products as $index => $product)
+        <div data-aos="fade-up"
+        data-aos-delay="{{ $index * 100 }}"
+        class="relative bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 flex flex-col ">
             @if ($product->boosted_until > now())
 
                 <span class="absolute left-4 top-4 bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">Sponsorisé</span>
@@ -157,23 +178,23 @@
     <section class="px-4 py-10 md:ml-64 bg-no-repeat bg-[#6198ff] bg-cover" style="background-image: url('{{ asset('images/wave.svg') }}');">
         <h2 class="text-2xl md:text-3xl font-bold text-center text-gray-700 mb-10">Nos Boutiques</h2>
         <div class="relative px-4 md:px-10">
-            <div class="swiper mySwiper">
+            <div class="swiper shop-swiper">
                 <div class="swiper-wrapper">
                     @foreach ($shops as $shop)
                     <div class="swiper-slide flex justify-center">
-                        <div class="group relative overflow-hidden rounded-2xl w-[270px] sm:w-[300px] bg-white/20 border border-white/30 backdrop-blur-xl shadow-lg p-6 text-center text-gray-800 hover:bg-blue-500 hover:text-white transition duration-300">
+                        <div class="group relative overflow-hidden rounded-2xl w-full md:max-w-2xl bg-white/20 border border-white/30 backdrop-blur-xl shadow-lg p-6 text-center text-gray-800 hover:bg-blue-500 hover:text-white transition duration-300">
                             <!-- Image -->
                             <img src="/storage/{{ $shop->image }}" alt="{{ $shop->name }}"
                                 class="w-24 h-24 object-cover mb-4 rounded-full border-2 border-white shadow mx-auto transition duration-300 group-hover:scale-105">
-                    
+
                             <!-- Titre -->
                             <h3 class="text-lg font-bold mb-1 group-hover:text-white transition duration-300">{{ $shop->name }}</h3>
-                    
+
                             <!-- Description -->
                             <p class="text-sm text-gray-700 group-hover:text-gray-100 mb-10 transition duration-300">
                                 {{ Str::limit($shop->description, 50) }}
                             </p>
-                    
+
                             <!-- Slide-in Button -->
                             <div class="absolute bottom-0 left-0 w-full
                                         translate-y-0
@@ -206,29 +227,51 @@
 
     <section class="py-10 px-4 md:ml-64 bg-cover" style="background-image: url('{{ asset('images/waves.svg') }}');">
         <h2 class="text-3xl font-bold text-white text-center mb-10">Produits Populaires</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 px-4">
-            @foreach ($productsPopulaire as $product)
-            <div class="backdrop-blur-lg bg-white/10 border border-white/20 rounded-xl shadow-lg p-4 text-center">
-                <img src="/storage/{{ $product->image }}" alt="{{ $product->name }}" class="w-48 h-48 object-cover mb-4 mx-auto">
-                <h3 class="text-lg font-semibold text-white mt-2">{{ $product->title }}</h3>
-                    <div class="mt-2 mb-2 flex items-center space-x-1 justify-center">
-                            {{-- Affichage des étoiles de notation --}}
-                            @for ($i = 1; $i<= $product->averageRating(); $i++  )
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="inline-block w-5 h-5 text-yellow-400">
-                                    <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" />
-                                </svg>
-                            @endfor
-                            @for ($i = $product->averageRating(); $i< 5; $i++)
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline-block w-5 h-5 text-yellow-400">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
-                                </svg>
-                            @endfor
+        <div class="relative px-4 md:px-10">
+            <div class="swiper product-swiper">
+                <div class="swiper-wrapper">
+                    @foreach ($productsPopulaire as $product)
+                    <div class="swiper-slide flex justify-center">
+                        <div class="group relative overflow-hidden w-full md:max-w-2xl backdrop-blur-lg bg-white/10 border border-white/20 rounded-xl shadow-lg p-4 text-center">
+                            <img src="/storage/{{ $product->image }}" alt="{{ $product->name }}" class="w-48 h-48 object-cover mb-4 mx-auto">
+                            <h3 class="text-lg font-semibold text-white mt-2">{{ $product->title }}</h3>
+                                <div class="mt-2 mb-2 flex items-center space-x-1 justify-center">
+                                        {{-- Affichage des étoiles de notation --}}
+                                        @for ($i = 1; $i<= $product->averageRating(); $i++  )
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="inline-block w-5 h-5 text-yellow-400">
+                                                <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" />
+                                            </svg>
+                                        @endfor
+                                        @for ($i = $product->averageRating(); $i< 5; $i++)
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline-block w-5 h-5 text-yellow-400">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+                                            </svg>
+                                        @endfor
 
+                                </div>
+                            <p class="text-white font-bold mb-12">{{ number_format($product->price, 0, ',', ' ') }} Ar</p>
+                            <div class="absolute bottom-2 left-0 w-full
+                                            translate-y-0
+                                            md:translate-y-full
+                                            md:group-hover:translate-y-0
+                                            transition-transform duration-500">
+                                <a href="{{ route('product.show', $product) }}" class="inline-block bg-white text-blue-600 px-4 py-2 rounded hover:bg-blue-600 border hover:border-white hover:text-white">Voir le produit</a>
+                            </div>
+                        </div>
                     </div>
-                <p class="text-white font-bold mb-2">{{ number_format($product->price, 0, ',', ' ') }} Ar</p>
-                <a href="{{ route('product.show', $product) }}" class="inline-block bg-white text-blue-600 px-4 py-2 rounded hover:bg-blue-600 border hover:border-white hover:text-white">Voir le produit</a>
+                    @endforeach
+
+                </div>
+
+                <!-- Pagination -->
+                <div class="mt-10">
+                    <div class="swiper-pagination "></div>
+                </div>
+
+                <!-- Navigation buttons -->
+                <div class="swiper-button-prev !-mt-12 !hidden md:!block  !text-white"></div>
+                <div class="swiper-button-next !-mt-12 !mr-3 !hidden md:!block !text-white"></div>
             </div>
-            @endforeach
         </div>
     </section>
 

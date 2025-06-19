@@ -12,6 +12,7 @@ import './bootstrap';
     document.addEventListener('DOMContentLoaded', () => {
     const navbar = document.getElementById('navbar');
     const btn = document.getElementById('btn');
+    const btn2 = document.getElementById('btn2');
     const absList = document.querySelectorAll('.abs');
 
     window.addEventListener('scroll', () => {
@@ -19,6 +20,8 @@ import './bootstrap';
             navbar.classList.add('bg-[#ffffffda]', 'shadow-md', 'text-gray-900');
             btn.classList.remove('text-white');
             btn.classList.add('text-black');
+            btn2.classList.remove('text-white');
+            btn2.classList.add('text-black');
             absList.forEach(abs => {
                 abs.classList.add('bg-black');
                 abs.classList.remove('bg-white');
@@ -31,6 +34,8 @@ import './bootstrap';
             });
             btn.classList.remove('text-black');
             btn.classList.add('text-white');
+            btn2.classList.remove('text-black');
+            btn2.classList.add('text-white');
             navbar.classList.remove('bg-[#ffffffda]', 'shadow-md', 'text-gray-900');
             navbar.classList.add('bg-gradient-to-r', 'from-blue-800', 'to-blue-00', 'text-white');
         }

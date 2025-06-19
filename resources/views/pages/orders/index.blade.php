@@ -16,7 +16,7 @@
                                 <strong>Commande #{{ $order->id }}</strong> – {{ $order->created_at->format('d M Y \à H:i') }}
                             </p>
                             <p class="text-sm text-gray-600">
-                                Vendeur : <strong>{{ $order->vendor->name ?? 'Inconnu' }}</strong>
+                                Vendeur : <a href="{{ route('vendor.show', $order->vendor->id) }}"><span class="text-blue-500">{{ $order->vendor->name }}</span></a>
                             </p>
                         </div>
 
@@ -64,6 +64,11 @@
                         <div class="text-right text-base font-bold text-gray-700">
                             Total : {{ number_format($order->total_amount, 0, ',', ' ') }} Ar
                         </div>
+                        <a href="{{ route('order.pdf', $order) }}"
+                        class="inline-block mt-5 px-3 py-1 font-semibold text-white bg-red-600 rounded hover:bg-red-200 hover:text-red-600"
+                        target="_blank">
+                        Imprimer en PDF
+                        </a>
                     </div>
                 </div>
             @empty

@@ -30,6 +30,7 @@ Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 
 Route::get('vendor/{vendor}/show', [VendorControler::class, 'show'])->name('vendor.show');
 
+Route::get('order/{order}/pdf', [OrderController::class, 'generatePdf'])->name('order.pdf');
 
 Route::group(['middleware' => 'customer'],function()
 {

@@ -1,8 +1,8 @@
 <x-admin.layout-admin title="Modification">
     {{-- <x-sidebar-vendor /> --}}
       {{-- Contenu principal --}}
-      <main class="py-10 px-8 md:ml-64 h-screen mt-15">
-        <div class="bg-white shadow-md rounded-xl py-10 px-15 w-150 mx-auto mb-5">
+      <main class="py-10 md:px-8 md:ml-64 h-screen mt-15">
+        <div class="bg-white shadow-md rounded-xl py-10 px-15 md:w-150 mx-auto mb-5">
             <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Modification d'une categorie</h2>
             <form action="{{ route('admin.categories.update', $category->id) }}" method="POST">
               @csrf

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\vendor;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Product;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -62,4 +63,6 @@ class OrderController extends Controller
 
         return redirect()->route('vendor.orders.index')->with('success', 'Statut de la commande mis à jour.');
     }
+
 }
+

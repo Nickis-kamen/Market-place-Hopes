@@ -2,10 +2,10 @@
 <div class="py-10 md:ml-64 px-6 space-y-10 mt-18">
 
     <!-- En-tête de bienvenue -->
-    <div class="flex justify-between items-center">
-        <div>
-            <h1 class="text-3xl font-bold text-gray-800">Bienvenue, {{ $user->name }} 👋</h1>
-            <p class="text-sm text-gray-500">Voici un aperçu de votre activité récente</p>
+    <div class="flex flex-wrap justify-between items-center">
+        <div class="md:mb-0 mb-4 ">
+            <h1 class="text-3xl font-bold text-gray-800 md:mb-0 mb-2 ">Bienvenue, {{ $user->name }} 👋</h1>
+            <p class="text-sm text-gray-500 ">Voici un aperçu de votre activité récente</p>
         </div>
         <div>
             @if($shop)
@@ -59,7 +59,7 @@
     </div>
 
     <!-- Graphique de performance (placeholder) -->
-    <div class="bg-white p-6 rounded-lg shadow-md">
+    <div class="w-full bg-white p-6 rounded-lg shadow-md">
         <h2 class="text-lg font-semibold text-gray-700 mb-4">Performance des ventes</h2>
         <div class="w-full bg-gray-100 rounded flex items-center justify-center text-gray-400">
             <div class="p-6">

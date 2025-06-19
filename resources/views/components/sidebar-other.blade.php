@@ -1,4 +1,4 @@
-<button
+<button id="btn2"
     data-drawer-target="default-sidebar"
     data-drawer-toggle="default-sidebar"
     aria-controls="default-sidebar"

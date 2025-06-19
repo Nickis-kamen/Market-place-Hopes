@@ -9,6 +9,8 @@
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
     {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"> --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
     @vite([
         'resources/css/app.css',
@@ -34,13 +36,64 @@
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> --}}
     {{-- <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
     <script>
+        AOS.init();
+        document.addEventListener('DOMContentLoaded', () => {
+            new Swiper('.hero-swiper', {
+                loop: true,
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+                effect: 'fade',
+                speed: 1000,
+
+            });
+        });
         document.addEventListener("DOMContentLoaded", function () {
-            new Swiper(".mySwiper", {
+            new Swiper(".product-swiper", {
                 slidesPerView: 1,
                 spaceBetween: 20,
                 loop: true,
-                grabCursor: true,
+                grabCursor: false,
+                centeredSlides: true,
+                effect: 'coverflow',
+                coverflowEffect: {
+                    rotate: 50,
+                    stretch: 0,
+                    depth: 100,
+                    modifier: 1,
+                    slideShadows: false,
+                },
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+                breakpoints: {
+                    640: {
+                        slidesPerView: 2,
+                    },
+                    768: {
+                        slidesPerView: 2,
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                    },
+                },
+            });
+        });
+        document.addEventListener("DOMContentLoaded", function () {
+            new Swiper(".shop-swiper", {
+                slidesPerView: 1,
+                spaceBetween: 20,
+                loop: true,
+                grabCursor: false,
                 centeredSlides: true,
                 pagination: {
                     el: ".swiper-pagination",

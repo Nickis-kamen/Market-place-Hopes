@@ -25,6 +25,7 @@
     <p><strong>Statut :</strong> {{ $status[$order->status] }}</p>
     <p><strong>Date :</strong> {{ $order->created_at->format('d/m/Y à H:i') }}</p>
     <p><strong>Client :</strong> {{ $order->user->name }}</p>
+    <p><strong>Vendeur :</strong> {{ $order->vendor->name }}</p>
 
     <h4>Produits :</h4>
     <table>

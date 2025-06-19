@@ -35,9 +35,4 @@ class OrderController extends Controller
         ]);
     }
 
-    public function generatePdf(Order $order)
-    {
-        $pdf = Pdf::loadView('admin.order.pdf', compact('order'));
-        return $pdf->download('commande-'.$order->id.'.pdf');
-    }
 }
