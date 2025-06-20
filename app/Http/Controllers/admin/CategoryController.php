@@ -42,14 +42,20 @@ class CategoryController extends Controller
         //
         $request->validate([
             'title' => 'required|string',
-            'slug' => 'unique',
             'description' => 'nullable|string',
         ]);
+        $baseSlug = Str::slug($request->title);
+        $slug = $baseSlug;
+        $counter = 1;
+        while (Categorie::where('slug', $slug)->exists()) {
+            $slug = $baseSlug . '-' . $counter;
+            $counter++;
+        }
 
         Categorie::create([
             'title' => $request->title,
             'description' => $request->description,
-            'slug' => Str::slug($request->title),
+            'slug' =>$slug,
         ]);
         return redirect('admin/categories')->with('success', 'Categorie crée avec succès');
     }

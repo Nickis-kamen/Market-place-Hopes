@@ -10,7 +10,6 @@
                             <th class="px-6 py-4">#</th>
                             <th class="px-6 py-4">Image</th>
                             <th class="px-6 py-4">Nom</th>
-                            <th class="px-6 py-4">Déscription</th>
                             <th class="px-6 py-4">Adresse</th>
                             <th class="px-6 py-4">Crée le</th>
                             <th class="px-6 py-4">Propriétaire</th>
@@ -19,11 +18,10 @@
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-100">
                         @foreach ($shops as $shop)
-                            <tr class="hover:bg-gray-50 transition">
+                            <tr class="hover:bg-gray-50 transition text-center">
                                 <td class="px-6 py-4 text-sm text-gray-700 font-medium">{{ $shop->id }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-900"><img src="/storage/{{ $shop->image }}" class="w-15" alt=""></td>
                                 <td class="px-6 py-4 text-sm text-gray-500">{{ $shop->name }}</td>
-                                <td class="px-6 py-4 text-sm text-gray-500">{{ Str::limit($shop->description, 60) }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-500">{{ $shop->adresse ?? '—' }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-500">{{ $shop->created_at->format('d M Y') }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-500">{{ $shop->user->name }}</td>

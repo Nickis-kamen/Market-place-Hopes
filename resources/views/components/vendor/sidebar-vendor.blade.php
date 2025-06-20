@@ -38,8 +38,13 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('vendor.orders.index') }}" class="flex items-center p-2 text-gray-700 hover:bg-blue-100 rounded-lg">
-                    📄 <span class="ml-2">Commandes</span>
+                <a href="{{ route('vendor.orders.index') }}" class="flex justify-between items-center p-2 text-gray-700 hover:bg-blue-100 rounded-lg">
+                    <span class="">📄 Commandes</span>
+                        @if ($newOrdersCount > 0)
+                            <span class="bg-red-500 text-white font-bold text-xs px-2 py-0.5 rounded-full">
+                                {{ $newOrdersCount }}
+                            </span>
+                        @endif
                 </a>
             </li>
             <li>

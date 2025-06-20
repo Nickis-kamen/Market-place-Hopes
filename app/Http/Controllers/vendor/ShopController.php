@@ -35,9 +35,9 @@ class ShopController extends Controller
      */
     public function store(Request $request)
     {
-        //
-         $request->validate([
-            'name' => 'required|string',
+        // Validation avec message personnalisé pour le nom
+        $request->validate([
+            'name' => 'required|string|max:255',
             'description' => 'required|string',
             'adresse' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
@@ -45,23 +45,42 @@ class ShopController extends Controller
 
         $user = Auth::user();
 
-
+        // Gestion de l'image
         if ($request->hasFile('image')) {
             $file = $request->file('image');
-            $path = $file->store('uploads/shops','public');
-        }else{
+            $path = $file->store('uploads/shops', 'public');
+        } else {
             $path = 'uploads/shops/shop_default.jpg';
         }
 
+        // Génération d’un slug unique
+        $slug = $this->generateUniqueSlug($request->name);
+
+        // Création de la boutique
         Shop::create([
-            'name'     => $request->name,
-            'user_id'  => $user->id,
-            'slug'     => Str::slug($request->name),
-            'description'  => $request->description,
-            'adresse'  => $request->adresse,
-            'image'    => $path,
+            'name'        => $request->name,
+            'user_id'     => $user->id,
+            'slug'        => $slug,
+            'description' => $request->description,
+            'adresse'     => $request->adresse,
+            'image'       => $path,
         ]);
+
         return redirect('/vendor/shop')->with('success', 'Votre boutique a été créée avec succès.');
+    }
+
+    // Fonction pour générer un slug unique
+    private function generateUniqueSlug($name)
+    {
+        $slug = Str::slug($name);
+        $originalSlug = $slug;
+        $count = 1;
+
+        while (Shop::where('slug', $slug)->exists()) {
+            $slug = $originalSlug . '-' . $count++;
+        }
+
+        return $slug;
     }
 
     /**

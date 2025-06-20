@@ -71,6 +71,7 @@ class ProductController extends Controller
             'amount' => $amount,
             'duration_days' => $duration,
         ]);
+
         return redirect()->route('vendor.products.index')->with('success', "Votre boost pour {$duration} jour(s) est encore d'examination !");
     }
     public function index()
@@ -114,6 +115,11 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //
+        if (!$request->hasFile('image')) {
+            return back()
+                ->withInput()
+                ->withErrors(['image' => 'Aucune image valide reçue. Vérifiez la taille (max 2 Mo).']);
+        }
         $request->validate([
             'shop_id' => 'required|exists:shops,id',
             'title' => 'required|string|max:255|regex:/^[\pL\s0-9\-\',\.\(\)]+$/u',
@@ -122,7 +128,19 @@ class ProductController extends Controller
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:100',
             'quantity' => 'required|integer|min:1'
+        ], [
+            'image.max' => 'L\'image ne doit pas dépasser 2 Mo.',
+            'image.mimes' => 'Format d\'image non autorisé. Formats acceptés : jpeg, png, jpg, gif, webp.',
+            'image.image' => 'Le fichier doit être une image.',
         ]);
+
+        $baseSlug = Str::slug($request->title);
+        $slug = $baseSlug;
+        $counter = 1;
+        while (Product::where('slug', $slug)->exists()) {
+            $slug = $baseSlug . '-' . $counter;
+            $counter++;
+        }
 
         $file = $request->file('image');
         $path = $file->store('uploads/products','public');
@@ -130,7 +148,7 @@ class ProductController extends Controller
         $product = Product::create([
             'shop_id' => $request->shop_id,
             'title' => $request->title,
-            'slug' => Str::slug($request->title),
+            'slug' => $slug,
             'description' => $request->description,
             'price' => $request->price,
             'quantity' => $request->quantity,
@@ -180,11 +198,19 @@ class ProductController extends Controller
             $product->image = $path;
         }
 
+        $baseSlug = Str::slug($request->title);
+        $slug = $baseSlug;
+        $counter = 1;
+        while (Product::where('slug', $slug)->exists()) {
+            $slug = $baseSlug . '-' . $counter;
+            $counter++;
+        }
+
         $product->title = $request->title;
         $product->description = $request->description;
         $product->price = $request->price;
         $product->quantity = $request->quantity;
-        $product->slug = Str::slug($request->title);
+        $product->slug = $slug;
         $product->save();
 
         // Synchronisation des catégories (remplace les anciennes)

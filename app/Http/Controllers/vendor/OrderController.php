@@ -15,6 +15,10 @@ class OrderController extends Controller
     public function index()
     {
         $vendorId = Auth::user();
+
+        Order::where('vendor_id', $vendorId->id)
+        ->where('is_viewed_by_vendor', false)
+        ->update(['is_viewed_by_vendor' => true]);
         // $orders = Order::where('vendor_id', $vendorId->id)->get();
         // dd($orders);
         $orders = Order::where('vendor_id', $vendorId->id)

@@ -68,12 +68,6 @@
                                                 <option value="3">3 jours - 15 000 Ar</option>
                                                 <option value="7">7 jours - 35 000 Ar</option>
                                             </select>
-                                            @if ($product->is_boosted)
-                                                <button type="submit"
-                                                    class="mt-2 w-full bg-indigo-600 text-white px-3 py-1 rounded text-xs font-medium hover:bg-indigo-700">
-                                                    ⚡ Booster à nouveau
-                                                </button>
-                                            @else
                                                 @if($product->boosts->where('is_approved', false)->isEmpty())
                                                     <button type="submit"
                                                         class="mt-2 w-full bg-indigo-600 text-white px-3 py-1 rounded text-xs font-medium hover:bg-indigo-700">
@@ -85,7 +79,6 @@
                                                         ⚡ En attente
                                                     </button>
                                                 @endif
-                                            @endif
                                         </form>
                                     @endif
 

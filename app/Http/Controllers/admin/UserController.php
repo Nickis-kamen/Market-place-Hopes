@@ -11,6 +11,8 @@ class UserController extends Controller
     //
     public function showCustomer()
     {
+        User::where('role', 'customer')->where('is_viewed_by_admin', false)
+        ->update(['is_viewed_by_admin' => true]);
         $customers = User::where('role', 'customer')->get();
         return view('admin.customers.index', [
             'customers' => $customers
@@ -18,6 +20,8 @@ class UserController extends Controller
     }
     public function showVendor()
     {
+        User::where('role', 'vendor')->where('is_viewed_by_admin', false)
+        ->update(['is_viewed_by_admin' => true]);
         $vendors = User::where('role', 'vendor')->get();
         return view('admin.vendor.index', [
             'vendors' => $vendors
